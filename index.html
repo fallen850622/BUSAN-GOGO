@@ -124,28 +124,51 @@ const tripDate=new Date("2026-03-19");
 document.getElementById("countdown").innerText=
 Math.ceil((tripDate-new Date())/(1000*60*60*24))>0?`距離出發還有 ${Math.ceil((tripDate-new Date())/(1000*60*60*24))} 天`:"旅程中 ✈️";
 
-/* 行程表 */
+/* 行程表 Day1~6 加 icon 與交通時間 */
 const days=[
-{day:"Day1 3/19",timeline:[{time:"18:25 ✈️",text:"抵達金海機場",type:"travel"},{time:"21:00 🍜",text:"豬肉湯飯",type:"food"}]},
-{day:"Day2 3/20",timeline:[{time:"09:00 🏰",text:"甘川文化村",type:"activity"},{time:"12:00 🍲",text:"午餐：海鮮鍋",type:"food"},{time:"14:00 🛍️",text:"西面商圈逛街",type:"activity"},{time:"18:00 🌉",text:"廣安大橋夜景",type:"activity"}]},
-{day:"Day3 3/21",timeline:[{time:"08:00 🚗",text:"前往海雲台",type:"transport"},{time:"10:00 🏖️",text:"海雲台海灘散步",type:"activity"},{time:"12:00 🍴",text:"午餐：韓式烤肉",type:"food"},{time:"15:00 🏞️",text:"APEC會議場景",type:"activity"},{time:"19:00 🍜",text:"晚餐：豬肉湯飯",type:"food"}]},
-{day:"Day4 3/22",timeline:[{time:"09:00 🛍️",text:"樂天百貨購物",type:"activity"},{time:"12:00 🍲",text:"午餐：炸雞啤酒",type:"food"},{time:"14:00 🏯",text:"東萊古寺參觀",type:"activity"},{time:"17:00 ☕",text:"咖啡廳休息",type:"activity"}]},
-{day:"Day5 3/23",timeline:[{time:"08:30 🚗",text:"前往影島",type:"transport"},{time:"11:00 🏝️",text:"影島海邊散步",type:"activity"},{time:"13:00 🍴",text:"午餐：海鮮餐廳",type:"food"},{time:"15:00 🏞️",text:"松島天空步道",type:"activity"},{time:"19:00 🌃",text:"夜市小吃",type:"food"}]},
-{day:"Day6 3/24",timeline:[{time:"08:00 🚗",text:"前往機場",type:"transport"},{time:"12:00 ✈️",text:"BX795",type:"travel"}]}
+{day:"Day1 3/19 (週四)",timeline:[
+  {time:"18:25 ✈️",text:"抵達金海機場 (BX796)",type:"travel"},
+  {time:"19:30 🚗",text:"搭乘包車前往飯店（車程60分鐘）",type:"transport"},
+  {time:"20:30 🏨",text:"飯店 Check-in：Best Western 海雲台",type:"activity"},
+  {time:"21:00 🍴",text:"晚餐：水邊最高豬肉湯飯 (步行 1 分鐘)",type:"food"}
+]},
+{day:"Day2 3/20 (週五)",timeline:[
+  {time:"08:30 🍳",text:"早餐 Egg Drop 海雲台店 (走路7分鐘) 9:45離開",type:"food"},
+  {time:"10:30 🏞️",text:"甘川文化村-小王子 (車程40分鐘) 12點離開",type:"activity"},
+  {time:"12:15 - 15:00 🛍️",text:"國際市場、光復路購物街、樂天百貨 (買棉被-逛街購物-午餐) 車程15分鐘",type:"activity"},
+  {time:"15:00 🗼",text:"釜山塔 步行至手扶梯",type:"activity"},
+  {time:"16:10 🚇",text:"搭地鐵至西面吃飯+逛街7站 (地鐵25分鐘) W1600",type:"transport"},
+  {time:"16:30 🍖",text:"晚餐：83 獬豸烤肉 (派人先抽號碼牌) 回程：搭地鐵15站 (地鐵40分鐘) W1800",type:"food"}
+]},
+{day:"Day3 3/21 (週六)",timeline:[
+  {time:"09:30 🍞",text:"早餐 OPS 烘培屋 (走路7分鐘)",type:"food"},
+  {time:"10:00 🏬",text:"新世界百貨 Centum City 午餐 14:00離開",type:"activity"},
+  {time:"14:30 🛒",text:"E-mart 海雲台店 (伴手禮採買) 16:00離開",type:"activity"},
+  {time:"16:00 🏨",text:"返回住宿放東西",type:"activity"},
+  {time:"17:00 🌊",text:"廣安里海灘+無人機秀(晚上8點) 搭地鐵5站(地鐵20分鐘) W1600",type:"activity"}
+]},
+{day:"Day4 3/22 (週日)",timeline:[
+  {time:"08:30 🍳",text:"早餐超商",type:"food"},
+  {time:"09:00 🏯",text:"東海龍宮 譽為韓國最美寺廟之一 10:30離開 (車程25分鐘)",type:"activity"},
+  {time:"10:45 🚡",text:"斜坡滑車 (Skyline Luge) 12點前離開 走路10分鐘 啟用VBP免費玩2次",type:"activity"},
+  {time:"12:30 🍲",text:"尾浦站附近 午餐(車程20分鐘) 15:00離開",type:"food"},
+  {time:"15:00 🚆",text:"搭乘海岸列車 (尾浦➡️海月展望台)",type:"transport"},
+  {time:"16:00 🚆",text:"搭乘海岸列車 (海月展望台➡️青沙浦)",type:"transport"},
+  {time:"17:30-18:00 🚆",text:"搭乘膠囊列車(青沙浦➡️尾浦)",type:"transport"},
+  {time:"18:15 🌃",text:"釜山 X the SKY 100F夜景與世界最高的星巴克 走路7分鐘VBP持卡免費 回程：步行回飯店(走路14分)",type:"activity"}
+]},
+{day:"Day5 3/23 (週一)",timeline:[
+  {time:"09:00 🍳",text:"早餐超商 (車程40分鐘)",type:"food"},
+  {time:"09:40 🖼️",text:"ARTE MUSEUM Busan 釜山藝術博物館 VBP持卡免費 11點離開",type:"activity"},
+  {time:"11:10 ☕",text:"Thrill on the Mug 咖啡廳 12:30離開 車程10分鐘",type:"food"},
+  {time:"13:00 🏖️",text:"海雲台傳統市場巡禮 海雲台沙灘 車程40分鐘",type:"activity"},
+  {time:"17:00 🛍️",text:"飯店附近最後補漏採買(藥妝 超商 大創等等…) 行李整理 秤重量",type:"activity"}
+]},
+{day:"Day6 3/24 (週二)",timeline:[
+  {time:"08:00 🚗",text:"出發金海機場 預約包車（車程 60 分鐘）",type:"transport"},
+  {time:"12:00 ✈️",text:"BX795 起飛",type:"travel"}
+]}
 ];
-const schedulePage=document.getElementById("schedule-page");
-days.forEach(d=>{
-const card=document.createElement("div");card.className="card";
-card.innerHTML=`<h2>${d.day}</h2><div class="timeline"></div>`;
-const tl=card.querySelector(".timeline");
-d.timeline.forEach(t=>{
-const div=document.createElement("div");
-div.className="timeline-item "+t.type;
-div.innerHTML=`<div class="time">${t.time}</div>${t.text}`;
-tl.appendChild(div);
-});
-schedulePage.appendChild(card);
-});
 
 /* 清單資料 */
 const defaults={
@@ -190,3 +213,4 @@ renderChecklist();
 </script>
 </body>
 </html>
+
