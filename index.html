@@ -46,7 +46,6 @@ display:flex;
 width:300%;
 height:calc(100vh - 120px);
 transition:transform 0.3s ease;
-touch-action:none;
 }
 .page{
 width:100%;
@@ -170,33 +169,15 @@ BUSAN TRAVEL
 </div>
 
 <script>
-/* 分頁滑動 */
+/* 分頁切換 */
 let current=0;
 const app=document.getElementById("app");
-let startX=0, currentTranslate=0;
-
 function goPage(index){
 current=index;
-currentTranslate=-index*100;
 app.style.transition="transform 0.3s ease";
-app.style.transform=`translateX(${currentTranslate}%)`;
+app.style.transform=`translateX(-${index*100}%)`;
 document.querySelectorAll(".tabbar button").forEach((b,i)=>b.classList.toggle("active",i===index));
 }
-app.addEventListener("touchstart",e=>{
-startX=e.touches[0].clientX;
-app.style.transition="none";
-});
-app.addEventListener("touchmove",e=>{
-const dx=e.touches[0].clientX - startX;
-let percent = dx/window.innerWidth*100;
-app.style.transform=`translateX(${currentTranslate + percent}%)`;
-});
-app.addEventListener("touchend",e=>{
-const dx=e.changedTouches[0].clientX - startX;
-if(dx<-50 && current<2) current++;
-else if(dx>50 && current>0) current--;
-goPage(current);
-});
 
 /* 倒數 */
 const tripDate=new Date("2026-03-19");
@@ -213,7 +194,6 @@ const days=[
 {day:"Day5 3/23",timeline:[{time:"08:30 🚗",text:"前往影島"},{time:"11:00 🏝️",text:"影島海邊散步"},{time:"13:00 🍴",text:"午餐：海鮮餐廳"},{time:"15:00 🏞️",text:"松島天空步道"},{time:"19:00 🌃",text:"夜市小吃"}]},
 {day:"Day6 3/24",timeline:[{time:"08:00 🚗",text:"前往機場"},{time:"12:00 ✈️",text:"BX795"}]}
 ];
-
 const schedulePage=document.getElementById("schedule-page");
 days.forEach(d=>{
 const card=document.createElement("div");
@@ -275,12 +255,6 @@ ${item.text}
 </label>`;
 div.appendChild(content);
 if(item.custom){
-let startX=0;
-div.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-div.addEventListener("touchmove",e=>{
-if(startX-e.touches[0].clientX>50)
-content.style.transform="translateX(-80px)";
-});
 const del=document.createElement("button");
 del.className="delete-btn";
 del.innerText="刪除";
@@ -301,8 +275,7 @@ el.style.display = el.style.display==='block'?'none':'block';
 }
 function toggleCheck(type,index){data[type][index].checked=!data[type][index].checked;save();}
 function addItem(type){const input=document.getElementById(type+"-input");if(!input.value)return;data[type].push({text:input.value,custom:true,checked:false});save();renderChecklist();}
-function previewPhoto(event,key){const preview=document.getElementById(key+'-preview');if(event.target.files && event.target.files[0]){const reader=new FileReader();reader.onload=e=>{preview.src=e.target.result;preview.style.display='block';};reader.readAsDataURL(event.target.files[0]);}
-}
+function previewPhoto(event,key){const preview=document.getElementById(key+'-preview');if(event.target.files && event.target.files[0]){const reader=new FileReader();reader.onload=e=>{preview.src=e.target.result;preview.style.display='block';};reader.readAsDataURL(event.target.files[0]);}}
 renderChecklist();
 </script>
 </body>
