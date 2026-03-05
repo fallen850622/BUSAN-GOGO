@@ -2,15 +2,15 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>釜山之旅 Busan Travel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Busan Travel App</title>
 
 <style>
 :root{
---main-blue:#5C7A89;
---deep-blue:#3E5561;
---light-gray:#F1F3F4;
---glass:rgba(255,255,255,0.9);
+--main:#5C7A89;
+--deep:#3E5561;
+--light:#F1F3F4;
+--glass:rgba(255,255,255,0.92);
 --text:#333;
 }
 
@@ -18,8 +18,9 @@ body{
 margin:0;
 font-family:"Noto Sans TC",sans-serif;
 color:var(--text);
-background:url("https://images.unsplash.com/photo-1526481280691-3a5d7d9c8f6f") no-repeat center center fixed;
+background:url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") no-repeat center center fixed;
 background-size:cover;
+overflow:hidden;
 }
 
 body::before{
@@ -33,41 +34,32 @@ z-index:-1;
 }
 
 header{
-background:var(--deep-blue);
+background:var(--deep);
 color:white;
 text-align:center;
-padding:18px;
-letter-spacing:2px;
+padding:16px;
+font-size:18px;
 }
 
 .countdown{
-font-size:14px;
-margin-top:6px;
+font-size:13px;
+margin-top:4px;
 opacity:0.9;
 }
 
-nav{
+/* 滑動容器 */
+.app{
 display:flex;
-background:white;
+width:300%;
+height:calc(100vh - 120px);
+transition:transform 0.3s ease;
 }
 
-nav button{
-flex:1;
-padding:14px;
-border:none;
-background:none;
-font-size:15px;
-cursor:pointer;
+.page{
+width:100%;
+overflow-y:auto;
+padding:20px;
 }
-
-nav button.active{
-background:var(--light-gray);
-color:var(--deep-blue);
-font-weight:bold;
-}
-
-section{display:none;padding:20px;}
-section.active{display:block;}
 
 .card{
 background:var(--glass);
@@ -77,36 +69,85 @@ border-radius:14px;
 box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
-h2{color:var(--deep-blue);margin:0 0 10px 0;}
-
-/* checklist */
-.checklist-item{
-display:flex;
-justify-content:space-between;
-padding:8px 0;
-border-bottom:1px solid #eee;
+h2{
+margin:0 0 10px 0;
+color:var(--deep);
 }
 
-.add-area{display:flex;margin-top:8px;}
+.timeline{
+border-left:3px solid var(--main);
+padding-left:15px;
+margin-left:10px;
+}
+
+.timeline-item{margin-bottom:12px;}
+.time{font-weight:bold;color:var(--deep);}
+
+/* 清單 */
+.checklist-item{
+position:relative;
+padding:10px 0;
+border-bottom:1px solid #eee;
+overflow:hidden;
+}
+
+.checklist-content{
+transition:0.3s;
+}
+
+.delete-btn{
+position:absolute;
+right:0;
+top:0;
+bottom:0;
+width:80px;
+background:#d9534f;
+color:white;
+border:none;
+}
+
+.add-area{
+display:flex;
+margin-top:8px;
+}
 .add-area input{flex:1;padding:8px;}
 .add-area button{
-background:var(--main-blue);
+background:var(--main);
 color:white;
 border:none;
 padding:8px 12px;
 }
 
-/* timeline */
-.timeline{border-left:3px solid var(--main-blue);padding-left:15px;margin-left:10px;}
-.timeline-item{margin-bottom:14px;cursor:pointer;}
-.time{font-weight:bold;color:var(--deep-blue);}
-.hidden{display:none;}
+.photo-area{
+margin-top:10px;
+}
+.photo-area input[type="file"]{
+display:block;
+margin-bottom:5px;
+}
 
-.note-box{
-background:#f7f7f7;
-padding:10px;
-border-radius:10px;
+/* 底部導覽 */
+.tabbar{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+display:flex;
+background:white;
+border-top:1px solid #ddd;
+}
+
+.tabbar button{
+flex:1;
+padding:14px;
+border:none;
+background:none;
 font-size:14px;
+}
+
+.tabbar button.active{
+color:var(--deep);
+font-weight:bold;
 }
 </style>
 </head>
@@ -114,216 +155,192 @@ font-size:14px;
 <body>
 
 <header>
-BUSAN TRAVEL 釜山之旅
+BUSAN TRAVEL
 <div class="countdown" id="countdown"></div>
 </header>
 
-<nav>
-<button class="tab active" onclick="openTab(0)">航班資訊</button>
-<button class="tab" onclick="openTab(1)">攜帶物品清單</button>
-<button class="tab" onclick="openTab(2)">行程表</button>
-</nav>
-
-<!-- 航班 -->
-<section class="active">
-<div class="card">
-<h2>✈️ 去程</h2>
-3/19 15:00 高雄 ➜ 18:25 釜山 (BX796)
-</div>
-<div class="card">
-<h2>✈️ 回程</h2>
-3/24 12:00 釜山 ➜ 14:00 高雄 (BX795)
-</div>
-<div class="card note-box">
-✔ 行動電源隨身<br>
-✔ 液體托運<br>
-✔ 手提10KG / 托運15KG<br>
-✔ 加購托運23KG
-</div>
-</section>
-
-<!-- 清單 -->
-<section>
-<div class="card">
-<h2>重要文件</h2>
-<div id="doc-list"></div>
-<div class="add-area">
-<input id="doc-input" placeholder="新增項目...">
-<button onclick="addItem('doc')">新增</button>
-</div>
-</div>
-
-<div class="card">
-<h2>3C產品</h2>
-<div id="tech-list"></div>
-<div class="add-area">
-<input id="tech-input" placeholder="新增項目...">
-<button onclick="addItem('tech')">新增</button>
-</div>
-</div>
-
-<div class="card">
-<h2>衣物備品</h2>
-<div id="cloth-list"></div>
-<div class="add-area">
-<input id="cloth-input" placeholder="新增項目...">
-<button onclick="addItem('cloth')">新增</button>
-</div>
-</div>
-
-<div class="card">
-<h2>盥洗用品</h2>
-<div id="wash-list"></div>
-<div class="add-area">
-<input id="wash-input" placeholder="新增項目...">
-<button onclick="addItem('wash')">新增</button>
-</div>
-</div>
-</section>
+<div class="app" id="app">
 
 <!-- 行程表 -->
-<section>
-
+<div class="page">
 <div class="card">
-<h2 onclick="toggle(this)">Day1 3/19</h2>
+<h2>Day1 3/19</h2>
 <div class="timeline">
 <div class="timeline-item"><div class="time">18:25 ✈️</div>抵達金海機場</div>
-<div class="timeline-item"><div class="time">19:30 🚗</div>包車前往飯店（60分鐘）</div>
-<div class="timeline-item"><div class="time">20:30 🏨</div>Best Western 海雲台 Check-in</div>
-<div class="timeline-item"><div class="time">21:00 🍜</div>水邊最高豬肉湯飯</div>
+<div class="timeline-item"><div class="time">21:00 🍜</div>豬肉湯飯</div>
 </div>
 </div>
 
 <div class="card">
-<h2 onclick="toggle(this)">Day2 3/20</h2>
+<h2>Day6 3/24</h2>
 <div class="timeline">
-<div class="timeline-item"><div class="time">08:30 🍞</div>早餐 Egg Drop</div>
-<div class="timeline-item"><div class="time">10:30 🏯</div>甘川文化村</div>
-<div class="timeline-item"><div class="time">12:15 🛍️</div>國際市場 / 光復路 / 樂天百貨</div>
-<div class="timeline-item"><div class="time">15:00 🌇</div>釜山塔</div>
-<div class="timeline-item"><div class="time">16:10 🚇</div>西面逛街</div>
-<div class="timeline-item"><div class="time">16:30 🍖</div>83 獬豸烤肉</div>
+<div class="timeline-item"><div class="time">08:00 🚗</div>前往機場</div>
+<div class="timeline-item"><div class="time">12:00 ✈️</div>BX795</div>
+</div>
 </div>
 </div>
 
+<!-- 航班 -->
+<div class="page">
 <div class="card">
-<h2 onclick="toggle(this)">Day3 3/21</h2>
-<div class="timeline">
-<div class="timeline-item"><div class="time">09:30 🥐</div>OPS 烘培屋早餐</div>
-<div class="timeline-item"><div class="time">10:30 🛍️</div>新世界百貨 Centum City</div>
-<div class="timeline-item"><div class="time">14:30 🛒</div>E-mart 海雲台店</div>
-<div class="timeline-item"><div class="time">17:00 🌊</div>廣安里海灘 + 無人機秀</div>
+<h2>去程</h2>
+<p>3/19 15:00 ➜ 18:25 BX796</p>
+<p>出發地：高雄小港機場第一航廈 Terminal1</p>
+<p>抵達地：釜山金浦機場第一航廈 Terminal1</p>
 </div>
-</div>
-
 <div class="card">
-<h2 onclick="toggle(this)">Day4 3/22</h2>
-<div class="timeline">
-<div class="timeline-item"><div class="time">08:30 🥪</div>早餐超商</div>
-<div class="timeline-item"><div class="time">09:00 🏯</div>東海龍宮寺</div>
-<div class="timeline-item"><div class="time">10:45 🎢</div>Skyline Luge</div>
-<div class="timeline-item"><div class="time">15:00 🚆</div>海岸列車</div>
-<div class="timeline-item"><div class="time">18:15 🌃</div>釜山 X the SKY</div>
+<h2>回程</h2>
+<p>3/24 12:00 ➜ 14:00 BX795</p>
+<p>出發地：釜山金浦機場第一航廈 Terminal1</p>
+<p>抵達地：高雄小港機場第一航廈 Terminal1</p>
 </div>
 </div>
 
-<div class="card">
-<h2 onclick="toggle(this)">Day5 3/23</h2>
-<div class="timeline">
-<div class="timeline-item"><div class="time">09:00 🚗</div>前往 ARTE MUSEUM</div>
-<div class="timeline-item"><div class="time">09:40 🎨</div>ARTE MUSEUM Busan</div>
-<div class="timeline-item"><div class="time">11:10 ☕</div>Thrill on the Mug</div>
-<div class="timeline-item"><div class="time">13:00 🏖️</div>海雲台傳統市場 / 沙灘</div>
-<div class="timeline-item"><div class="time">晚上 🧳</div>整理行李 秤重</div>
-</div>
+<!-- 清單 -->
+<div class="page" id="checklist-page"></div>
+
 </div>
 
-<div class="card">
-<h2 onclick="toggle(this)">Day6 3/24</h2>
-<div class="timeline">
-<div class="timeline-item"><div class="time">08:00 🚗</div>包車前往金海機場</div>
-<div class="timeline-item"><div class="time">12:00 ✈️</div>BX795 起飛</div>
+<div class="tabbar">
+<button class="active" onclick="goPage(0)">行程</button>
+<button onclick="goPage(1)">航班</button>
+<button onclick="goPage(2)">清單</button>
 </div>
-</div>
-
-<div class="card note-box">
-備註：<br>
-✔ VBP持卡免費項目已安排<br>
-✔ 3/22 E-mart公休<br>
-✔ 地鐵費約W1600<br>
-✔ 行動電源隨身
-</div>
-
-</section>
-
-</section>
 
 <script>
 
-/* 分頁 */
-function openTab(index){
-document.querySelectorAll("section").forEach((s,i)=>{
-s.classList.remove("active");
-if(i===index)s.classList.add("active");
-});
-document.querySelectorAll(".tab").forEach((t,i)=>{
-t.classList.remove("active");
-if(i===index)t.classList.add("active");
+/* 分頁滑動 */
+let current=0;
+const app=document.getElementById("app");
+
+function goPage(index){
+current=index;
+app.style.transform=`translateX(-${index*100}%)`;
+document.querySelectorAll(".tabbar button").forEach((b,i)=>{
+b.classList.toggle("active",i===index);
 });
 }
+
+/* 手勢滑動 */
+let startX=0;
+app.addEventListener("touchstart",e=>{
+startX=e.touches[0].clientX;
+});
+app.addEventListener("touchend",e=>{
+let diff=startX-e.changedTouches[0].clientX;
+if(diff>50 && current<2) goPage(current+1);
+if(diff<-50 && current>0) goPage(current-1);
+});
 
 /* 倒數 */
 const tripDate=new Date("2026-03-19");
 const today=new Date();
 const diff=Math.ceil((tripDate-today)/(1000*60*60*24));
 document.getElementById("countdown").innerText=
-diff>0?`距離出發還有 ${diff} 天`:"旅程進行中 ✈️";
-
-/* 行程收合 */
-function toggle(el){
-el.nextElementSibling.classList.toggle("hidden");
-}
+diff>0?`距離出發還有 ${diff} 天`:"旅程中 ✈️";
 
 /* 清單資料 */
 const defaults={
-doc:["護照","機票","台幣2萬以上","外幣","住宿資訊","交通資訊","信用卡","wowpass"],
-tech:["充電線","充電器","行動電源","wifi機","耳機","轉接頭"],
-cloth:["衣服","外套","睡衣","室內拖","圍巾","帽子","手套"],
-wash:["牙刷","洗面乳","洗髮乳","保養品","防曬","毛巾"]
+doc:["護照","機票(紙本)","台幣(2w以上建議多帶一些)","外幣(韓圓)","住宿資訊","交通資訊","門票資訊","信用卡","wowpass"],
+tech:["充電線","充電器","行動電源","轉接器","wifi機","耳機","電子磅秤","壓縮機"],
+cloth:["貼身衣物(內衣褲)","衣服","褲子","外套","睡衣","襪子","室內拖","拖鞋","圍巾","帽子","手套","隱形眼鏡","眼鏡","藥水","衣服壓縮袋","吹風機","濕紙巾","衛生紙","飲料提袋","牙線"],
+wash:["洗面乳","卸妝乳","沐浴乳","洗髮乳","洗臉巾","棉花棒","牙膏牙刷","卸妝棉","香水","髮油","保養品","防曬","浴巾","髮巾","毛巾","梳子","髮夾","髮捲"],
+remind:["吹風機要確認有接受220V","投保旅平不便險","氣溫約3-15度，海邊風大，早晚溫差大"]
 };
 
-function saveData(){localStorage.setItem("busanList",JSON.stringify(data));}
-function loadData(){
-const saved=localStorage.getItem("busanList");
-if(saved)return JSON.parse(saved);
-return defaults;
-}
+let data=JSON.parse(localStorage.getItem("busanList"))||{
+doc:defaults.doc.map(t=>({text:t,custom:false,checked:false})),
+tech:defaults.tech.map(t=>({text:t,custom:false,checked:false})),
+cloth:defaults.cloth.map(t=>({text:t,custom:false,checked:false})),
+wash:defaults.wash.map(t=>({text:t,custom:false,checked:false})),
+remind:defaults.remind.map(t=>({text:t,custom:false,checked:false}))
+};
 
-let data=loadData();
+function save(){localStorage.setItem("busanList",JSON.stringify(data));}
 
-function render(){
+function renderChecklist(){
+const page=document.getElementById("checklist-page");
+page.innerHTML="";
 for(let key in data){
-const container=document.getElementById(key+"-list");
-if(!container)continue;
-container.innerHTML="";
-data[key].forEach((item,i)=>{
+const card=document.createElement("div");
+card.className="card";
+card.innerHTML=`<h2>${key}</h2>
+<div id="${key}-list"></div>
+<div class="add-area">
+<input id="${key}-input" placeholder="新增項目">
+<button onclick="addItem('${key}')">新增</button>
+</div>
+<div class="photo-area">
+<input type="file" id="${key}-photo" onchange="previewPhoto(event,'${key}')">
+<img id="${key}-preview" style="max-width:100%;margin-top:5px;display:none">
+</div>`;
+page.appendChild(card);
+
+const list=card.querySelector(`#${key}-list`);
+
+data[key].forEach((item,index)=>{
 const div=document.createElement("div");
 div.className="checklist-item";
-div.innerHTML=`<label><input type="checkbox"> ${item}</label>`;
-container.appendChild(div);
+
+const content=document.createElement("div");
+content.className="checklist-content";
+content.innerHTML=`<label>
+<input type="checkbox" ${item.checked?"checked":""}
+onchange="toggleCheck('${key}',${index})">
+${item.text}
+</label>`;
+div.appendChild(content);
+
+if(item.custom){
+let startX=0;
+div.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+div.addEventListener("touchmove",e=>{
+if(startX-e.touches[0].clientX>50)
+content.style.transform="translateX(-80px)";
+});
+const del=document.createElement("button");
+del.className="delete-btn";
+del.innerText="刪除";
+del.onclick=()=>{
+data[key].splice(index,1);
+save();
+renderChecklist();
+};
+div.appendChild(del);
+}
+
+list.appendChild(div);
 });
 }
 }
-render();
+
+function toggleCheck(type,index){
+data[type][index].checked=!data[type][index].checked;
+save();
+}
 
 function addItem(type){
 const input=document.getElementById(type+"-input");
 if(!input.value)return;
-data[type].push(input.value);
-saveData();
-render();
-input.value="";
+data[type].push({text:input.value,custom:true,checked:false});
+save();
+renderChecklist();
 }
+
+function previewPhoto(event,key){
+const preview=document.getElementById(key+'-preview');
+if(event.target.files && event.target.files[0]){
+const reader=new FileReader();
+reader.onload=e=>{
+preview.src=e.target.result;
+preview.style.display='block';
+};
+reader.readAsDataURL(event.target.files[0]);
+}
+}
+
+renderChecklist();
+
 </script>
 
 </body>
