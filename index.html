@@ -131,20 +131,35 @@ font-size:14px;
 color:var(--deep);
 font-weight:bold;
 }
+.export-btn{
+width:90%;
+margin:10px auto;
+display:block;
+padding:10px;
+background:var(--main);
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+}
 </style>
 </head>
 <body>
+
 <header>
 BUSAN TRAVEL
 <div class="countdown" id="countdown"></div>
 </header>
+
+<!-- 匯出 PDF 按鈕 -->
+<button class="export-btn" onclick="exportPDF()">匯出旅遊小書 PDF 📖</button>
 
 <div class="app" id="app">
 <!-- 行程表 -->
 <div class="page" id="schedule-page"></div>
 
 <!-- 航班 -->
-<div class="page">
+<div class="page" id="flight-page">
 <div class="card">
 <h2>去程</h2>
 <p>3/19 15:00 ➜ 18:25 BX796</p>
@@ -169,11 +184,14 @@ BUSAN TRAVEL
 <button onclick="goPage(2)">清單</button>
 </div>
 
+<!-- jsPDF 與 html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script>
+/* Tab 切換 */
 let current=0;
 const app=document.getElementById("app");
-
-/* Tab 切換動畫 */
 function goPage(index){
 current=index;
 app.style.transition="transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)";
@@ -198,17 +216,17 @@ const days=[
 ];
 const schedulePage=document.getElementById("schedule-page");
 days.forEach(d=>{
-const card=document.createElement("div");
-card.className="card";
-card.innerHTML=`<h2>${d.day}</h2><div class="timeline"></div>`;
-const tl=card.querySelector(".timeline");
-d.timeline.forEach(item=>{
-const div=document.createElement("div");
-div.className="timeline-item";
-div.innerHTML=`<div class="time">${item.time}</div>${item.text}`;
-tl.appendChild(div);
-});
-schedulePage.appendChild(card);
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`<h2>${d.day}</h2><div class="timeline"></div>`;
+  const tl=card.querySelector(".timeline");
+  d.timeline.forEach(item=>{
+    const div=document.createElement("div");
+    div.className="timeline-item";
+    div.innerHTML=`<div class="time">${item.time}</div>${item.text}`;
+    tl.appendChild(div);
+  });
+  schedulePage.appendChild(card);
 });
 
 /* 清單資料 */
@@ -227,57 +245,106 @@ wash:defaults.wash.map(t=>({text:t,custom:false,checked:false})),
 remind:defaults.remind.map(t=>({text:t,custom:false,checked:false}))
 };
 function save(){localStorage.setItem("busanList",JSON.stringify(data));}
+
 function renderChecklist(){
-const page=document.getElementById("checklist-page");
-page.innerHTML="";
-for(let key in data){
-const card=document.createElement("div");
-card.className="card";
-card.innerHTML=`<h2 onclick="toggleCollapse('${key}')">${key}</h2>
-<div class="list-collapse" id="${key}-list"></div>
-<div class="add-area">
-<input id="${key}-input" placeholder="新增項目">
-<button onclick="addItem('${key}')">新增</button>
-</div>
-<div class="photo-area">
-<input type="file" id="${key}-photo" onchange="previewPhoto(event,'${key}')">
-<img id="${key}-preview" style="max-width:100%;margin-top:5px;display:none">
-</div>`;
-page.appendChild(card);
-const list=card.querySelector(`#${key}-list`);
-data[key].forEach((item,index)=>{
-const div=document.createElement("div");
-div.className="checklist-item";
-const content=document.createElement("div");
-content.className="checklist-content";
-content.innerHTML=`<label>
-<input type="checkbox" ${item.checked?"checked":""} onchange="toggleCheck('${key}',${index})">
-${item.text}
-</label>`;
-div.appendChild(content);
-if(item.custom){
-const del=document.createElement("button");
-del.className="delete-btn";
-del.innerText="刪除";
-del.onclick=()=>{
-data[key].splice(index,1);
-save();
-renderChecklist();
-};
-div.appendChild(del);
-}
-list.appendChild(div);
-});
-}
+  const page=document.getElementById("checklist-page");
+  page.innerHTML="";
+  for(let key in data){
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`<h2 onclick="toggleCollapse('${key}')">${key}</h2>
+    <div class="list-collapse" id="${key}-list"></div>
+    <div class="add-area">
+      <input id="${key}-input" placeholder="新增項目">
+      <button onclick="addItem('${key}')">新增</button>
+    </div>
+    <div class="photo-area">
+      <input type="file" id="${key}-photo" onchange="previewPhoto(event,'${key}')">
+      <img id="${key}-preview" style="max-width:100%;margin-top:5px;display:none">
+    </div>`;
+    page.appendChild(card);
+    const list=card.querySelector(`#${key}-list`);
+    data[key].forEach((item,index)=>{
+      const div=document.createElement("div");
+      div.className="checklist-item";
+      const content=document.createElement("div");
+      content.className="checklist-content";
+      content.innerHTML=`<label>
+      <input type="checkbox" ${item.checked?"checked":""} onchange="toggleCheck('${key}',${index})">
+      ${item.text}
+      </label>`;
+      div.appendChild(content);
+      if(item.custom){
+        const del=document.createElement("button");
+        del.className="delete-btn";
+        del.innerText="刪除";
+        del.onclick=()=>{
+          data[key].splice(index,1);
+          save();
+          renderChecklist();
+        };
+        div.appendChild(del);
+      }
+      list.appendChild(div);
+    });
+  }
 }
 function toggleCollapse(key){
-const el=document.getElementById(key+'-list');
-el.style.display = el.style.display==='block'?'none':'block';
+  const el=document.getElementById(key+'-list');
+  el.style.display = el.style.display==='block'?'none':'block';
 }
 function toggleCheck(type,index){data[type][index].checked=!data[type][index].checked;save();}
 function addItem(type){const input=document.getElementById(type+"-input");if(!input.value)return;data[type].push({text:input.value,custom:true,checked:false});save();renderChecklist();}
-function previewPhoto(event,key){const preview=document.getElementById(key+'-preview');if(event.target.files && event.target.files[0]){const reader=new FileReader();reader.onload=e=>{preview.src=e.target.result;preview.style.display='block';};reader.readAsDataURL(event.target.files[0]);}}
+function previewPhoto(event,key){const preview=document.getElementById(key+'-preview');if(event.target.files && event.target.files[0]){const reader=new FileReader();reader.onload=e=>{preview.src=e.target.result;preview.style.display='block';};reader.readAsDataURL(event.target.files[0]);}
+}
 renderChecklist();
+
+/* 匯出 PDF 功能 */
+async function exportPDF(){
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF('p','mm','a4');
+  const margin=10;
+  let yOffset = margin;
+  for(let day of days){
+    const tmpDiv = document.createElement('div');
+    tmpDiv.style.width='800px';
+    tmpDiv.style.padding='10px';
+    tmpDiv.style.background='white';
+    tmpDiv.innerHTML = `<h2>${day.day}</h2><ul>${day.timeline.map(t=>`<li>${t.time} ${t.text}</li>`).join('')}</ul>`;
+    // 加入照片
+    for(let key in data){
+      const photoInput = document.getElementById(key+'-photo');
+      if(photoInput && photoInput.files && photoInput.files[0]){
+        const reader = new FileReader();
+        await new Promise(resolve=>{
+          reader.onload=e=>{
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth='780px';
+            img.style.display='block';
+            img.style.marginTop='5px';
+            tmpDiv.appendChild(img);
+            resolve();
+          }
+          reader.readAsDataURL(photoInput.files[0]);
+        });
+      }
+    }
+    const canvas = await html2canvas(tmpDiv,{scale:2});
+    const imgData = canvas.toDataURL('image/jpeg',1.0);
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth()-2*margin;
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    if(yOffset + pdfHeight > pdf.internal.pageSize.getHeight()-margin){
+      pdf.addPage();
+      yOffset = margin;
+    }
+    pdf.addImage(imgData,'JPEG',margin,yOffset,pdfWidth,pdfHeight);
+    yOffset += pdfHeight + 10;
+  }
+  pdf.save("Busan_Travel_Book.pdf");
+}
 </script>
+
 </body>
 </html>
