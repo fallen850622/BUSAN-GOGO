@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Busan Travel App</title>
 <style>
 :root{
@@ -55,7 +55,7 @@ margin-bottom:18px;
 border-radius:14px;
 box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
-h2{margin:0 0 10px 0;color:var(--deep);cursor:pointer;}
+h2{margin:0 0 10px 0;color:var(--deep);}
 .timeline{border-left:4px solid var(--main);padding-left:15px;margin-left:10px;}
 .timeline-item{margin-bottom:12px;position:relative;padding-left:10px;}
 .timeline-item::before{
@@ -64,21 +64,16 @@ width:10px;height:10px;border-radius:50%;
 position:absolute;left:-12px;top:6px;background:var(--main);
 }
 .time{font-weight:bold;color:var(--deep);}
-.checklist-item{position:relative;padding:10px 0;border-bottom:1px solid #eee;overflow:hidden;}
-.checklist-content{transition:0.3s;}
-.delete-btn{position:absolute;right:0;top:0;bottom:0;width:70px;background:#d9534f;color:white;border:none;}
-.add-area{display:flex;margin-top:8px;}
-.add-area input{flex:1;padding:8px;}
-.add-area button{background:var(--main);color:white;border:none;padding:8px 12px;}
-.collapse{display:none;}
+.checklist-item{padding:8px 0;border-bottom:1px solid #eee;}
+input[type="checkbox"]{margin-right:8px;}
 .tabbar{position:fixed;bottom:0;left:0;right:0;display:flex;background:white;border-top:1px solid #ddd;z-index:100;}
 .tabbar button{flex:1;padding:14px;border:none;background:none;font-size:14px;}
 .tabbar button.active{color:var(--deep);font-weight:bold;}
+.notice{color:red;margin-top:8px;font-size:13px;}
 .timeline-item.travel{border-left-color:var(--travel);}
 .timeline-item.food{border-left-color:var(--food);}
 .timeline-item.transport{border-left-color:var(--transport);}
 .timeline-item.activity{border-left-color:var(--activity);}
-.notice{color:red;margin-top:8px;font-size:13px;}
 </style>
 </head>
 <body>
@@ -88,7 +83,7 @@ BUSAN TRAVEL
 <div class="countdown" id="countdown"></div>
 </header>
 
-<!-- 行程頁面 -->
+<!-- 行程表頁面 -->
 <div class="page active" id="schedule-page"></div>
 
 <!-- 航班頁面 -->
@@ -98,12 +93,6 @@ BUSAN TRAVEL
 <p>3/19 15:00 ➜ 18:25 BX796</p>
 <p>出發：高雄小港機場第一航廈 Terminal1</p>
 <p>抵達：釜山金浦機場第一航廈 Terminal1</p>
-<div class="notice">
-行動電源要放隨身行李<br>
-液體放行李箱!<br>
-手提行李 10KG / 托運行李 15KG<br>
-有加費用托運行李增至23KG
-</div>
 </div>
 
 <div class="card">
@@ -111,12 +100,6 @@ BUSAN TRAVEL
 <p>3/24 12:00 ➜ 14:00 BX795</p>
 <p>出發：釜山金浦機場第一航廈 Terminal1</p>
 <p>抵達：高雄小港機場第一航廈 Terminal1</p>
-<div class="notice">
-行動電源要放隨身行李<br>
-液體放行李箱!<br>
-手提行李 10KG / 托運行李 15KG<br>
-有加費用托運行李增至23KG
-</div>
 </div>
 </div>
 
@@ -144,7 +127,7 @@ const tripDate=new Date("2026-03-19");
 document.getElementById("countdown").innerText=
 Math.ceil((tripDate-new Date())/(1000*60*60*24))>0?`距離出發還有 ${Math.ceil((tripDate-new Date())/(1000*60*60*24))} 天`:"旅程中 ✈️";
 
-// 行程表資料 Day1~Day6
+// 行程表資料
 const days=[
 {day:"Day1 3/19 (週四)",timeline:[
   {time:"18:25 ✈️",text:"抵達金海機場 (BX796)",type:"travel"},
@@ -206,44 +189,35 @@ schedulePage.appendChild(card);
 });
 
 // 清單資料
-const defaults={
+const checklistData={
 "重要文件":["護照","機票(紙本)","台幣(2w以上建議多帶一些)","外幣(韓圓)","住宿資訊","交通資訊","門票資訊","信用卡","wowpass"],
 "3C產品":["充電線","充電器","行動電源","轉接器","wifi機","耳機","電子磅秤","壓縮機"],
 "盥洗用品":["洗面乳","卸妝乳","沐浴乳","洗髮乳","洗臉巾","棉花棒","牙膏牙刷","卸妝棉","香水","髮油","保養品","防曬","浴巾","髮巾","毛巾","梳子","髮夾","髮捲"],
 "衣物備品":["貼身衣物(內衣褲)","衣服","褲子","外套","睡衣","襪子","室內拖","拖鞋","圍巾","帽子","手套","隱形眼鏡","眼鏡","藥水","衣服壓縮袋","吹風機","濕紙巾","衛生紙","飲料提袋","牙線"],
-"提醒事項":["1. 吹風機要確認有接受220V","2. 投保旅平不便險","3. 氣溫約3-15度，海邊風大，早晚溫差大","行動電源要放隨身行李","液體放行李箱!","手提行李 10KG / 托運行李 15KG","有加費用托運行李增至23KG"]
+"提醒事項":["1. 吹風機要確認有接受220V","2. 投保旅平不便險","3. 氣溫約3-15度，海邊風大，早晚溫差大"]
 };
 let data=JSON.parse(localStorage.getItem("busanList"))||{};
-for(let key in defaults){if(!data[key]) data[key]=defaults[key].map(t=>({text:t,custom:false,checked:false}));}
+for(let key in checklistData){if(!data[key]) data[key]=checklistData[key].map(t=>({text:t,checked:false}));}
 function save(){localStorage.setItem("busanList",JSON.stringify(data));}
 function renderChecklist(){
-const page=document.getElementById("checklist-page");page.innerHTML="";
+const page=document.getElementById("checklist-page");
+page.innerHTML="";
 for(let key in data){
-const card=document.createElement("div");card.className="card";
-card.innerHTML=`<h2 onclick="toggleCollapse('${key}')">${key}</h2>
-<div class="collapse" id="${key}-list"></div>
-<div class="add-area">
-<input id="${key}-input" placeholder="新增項目">
-<button onclick="addItem('${key}')">新增</button>
-</div>`;
-page.appendChild(card);
-const list=card.querySelector(`#${key}-list`);
-data[key].forEach((item,index)=>{
-const div=document.createElement("div");div.className="checklist-item";
-const content=document.createElement("div");content.className="checklist-content";
-content.innerHTML=`<label><input type="checkbox" ${item.checked?"checked":""} onchange="toggleCheck('${key}',${index})">${item.text}</label>`;
-div.appendChild(content);
-if(item.custom){
-const del=document.createElement("button");del.className="delete-btn";del.innerText="刪除";
-del.onclick=()=>{data[key].splice(index,1);save();renderChecklist();}
-div.appendChild(del);
-}
-list.appendChild(div);
+const card=document.createElement("div");
+card.className="card";
+card.innerHTML=`<h2>${key}</h2>`;
+data[key].forEach(item=>{
+const div=document.createElement("div");
+div.className="checklist-item";
+div.innerHTML=`<label><input type="checkbox" ${item.checked?"checked":""} onchange="toggleCheck('${key}','${item.text}')">${item.text}</label>`;
+card.appendChild(div);
 });
+page.appendChild(card);
 }}
-function toggleCheck(type,index){data[type][index].checked=!data[type][index].checked;save();}
-function addItem(type){const input=document.getElementById(type+"-input");if(!input.value)return;data[type].push({text:input.value,custom:true,checked:false});save();renderChecklist();}
-function toggleCollapse(key){const el=document.getElementById(key+'-list');el.style.display=(el.style.display==='block')?'none':'block';}
+function toggleCheck(type,text){
+const index=data[type].findIndex(i=>i.text===text);
+if(index>=0){data[type][index].checked=!data[type][index].checked;save();}
+}
 renderChecklist();
 </script>
 
