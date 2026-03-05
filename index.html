@@ -8,8 +8,12 @@
 :root{
 --main:#5C7A89;
 --deep:#3E5561;
---glass:rgba(255,255,255,0.92);
+--light:#F1F3F4;
 --text:#333;
+--travel:#FF6B6B;
+--food:#FFA94D;
+--transport:#339AF0;
+--activity:#51CF66;
 }
 body{
 margin:0;
@@ -45,15 +49,20 @@ display:none;
 }
 .page.active{display:block;}
 .card{
-background:var(--glass);
+background:var(--light);
 padding:16px;
 margin-bottom:18px;
 border-radius:14px;
 box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
-h2{margin:0 0 10px 0;color:var(--deep);}
-.timeline{border-left:3px solid var(--main);padding-left:15px;margin-left:10px;}
-.timeline-item{margin-bottom:12px;}
+h2{margin:0 0 10px 0;color:var(--deep);cursor:pointer;}
+.timeline{border-left:4px solid var(--main);padding-left:15px;margin-left:10px;}
+.timeline-item{margin-bottom:12px;position:relative;padding-left:10px;}
+.timeline-item::before{
+content:'';
+width:10px;height:10px;border-radius:50%;
+position:absolute;left:-12px;top:6px;background:var(--main);
+}
 .time{font-weight:bold;color:var(--deep);}
 .checklist-item{position:relative;padding:10px 0;border-bottom:1px solid #eee;overflow:hidden;}
 .checklist-content{transition:0.3s;}
@@ -61,9 +70,14 @@ h2{margin:0 0 10px 0;color:var(--deep);}
 .add-area{display:flex;margin-top:8px;}
 .add-area input{flex:1;padding:8px;}
 .add-area button{background:var(--main);color:white;border:none;padding:8px 12px;}
+.collapse{display:none;}
 .tabbar{position:fixed;bottom:0;left:0;right:0;display:flex;background:white;border-top:1px solid #ddd;z-index:100;}
 .tabbar button{flex:1;padding:14px;border:none;background:none;font-size:14px;}
 .tabbar button.active{color:var(--deep);font-weight:bold;}
+.timeline-item.travel{border-left-color:var(--travel);}
+.timeline-item.food{border-left-color:var(--food);}
+.timeline-item.transport{border-left-color:var(--transport);}
+.timeline-item.activity{border-left-color:var(--activity);}
 </style>
 </head>
 <body>
@@ -73,20 +87,19 @@ BUSAN TRAVEL
 <div class="countdown" id="countdown"></div>
 </header>
 
-<!-- 頁面 -->
 <div class="page active" id="schedule-page"></div>
 <div class="page" id="flight-page">
 <div class="card">
-<h2>去程</h2>
+<h2>去程航班</h2>
 <p>3/19 15:00 ➜ 18:25 BX796</p>
-<p>出發地：高雄小港機場第一航廈 Terminal1</p>
-<p>抵達地：釜山金浦機場第一航廈 Terminal1</p>
+<p>出發：高雄小港機場第一航廈 Terminal1</p>
+<p>抵達：釜山金浦機場第一航廈 Terminal1</p>
 </div>
 <div class="card">
-<h2>回程</h2>
+<h2>回程航班</h2>
 <p>3/24 12:00 ➜ 14:00 BX795</p>
-<p>出發地：釜山金浦機場第一航廈 Terminal1</p>
-<p>抵達地：高雄小港機場第一航廈 Terminal1</p>
+<p>出發：釜山金浦機場第一航廈 Terminal1</p>
+<p>抵達：高雄小港機場第一航廈 Terminal1</p>
 </div>
 </div>
 <div class="page" id="checklist-page"></div>
@@ -100,10 +113,10 @@ BUSAN TRAVEL
 <script>
 /* Tab 切換 */
 function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.tabbar button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.tabbar button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
 }
 
 /* 倒數 */
@@ -111,28 +124,27 @@ const tripDate=new Date("2026-03-19");
 document.getElementById("countdown").innerText=
 Math.ceil((tripDate-new Date())/(1000*60*60*24))>0?`距離出發還有 ${Math.ceil((tripDate-new Date())/(1000*60*60*24))} 天`:"旅程中 ✈️";
 
-/* Day1~6 行程 */
+/* 行程表 */
 const days=[
-{day:"Day1 3/19",timeline:[{time:"18:25 ✈️",text:"抵達金海機場"},{time:"21:00 🍜",text:"豬肉湯飯"}]},
-{day:"Day2 3/20",timeline:[{time:"09:00 🏰",text:"甘川文化村"},{time:"12:00 🍲",text:"午餐：海鮮鍋"},{time:"14:00 🛍️",text:"西面商圈逛街"},{time:"18:00 🌉",text:"廣安大橋夜景"}]},
-{day:"Day3 3/21",timeline:[{time:"08:00 🚗",text:"前往海雲台"},{time:"10:00 🏖️",text:"海雲台海灘散步"},{time:"12:00 🍴",text:"午餐：韓式烤肉"},{time:"15:00 🏞️",text:"APEC會議場景"},{time:"19:00 🍜",text:"晚餐：豬肉湯飯"}]},
-{day:"Day4 3/22",timeline:[{time:"09:00 🛍️",text:"樂天百貨購物"},{time:"12:00 🍲",text:"午餐：炸雞啤酒"},{time:"14:00 🏯",text:"東萊古寺參觀"},{time:"17:00 ☕",text:"咖啡廳休息"}]},
-{day:"Day5 3/23",timeline:[{time:"08:30 🚗",text:"前往影島"},{time:"11:00 🏝️",text:"影島海邊散步"},{time:"13:00 🍴",text:"午餐：海鮮餐廳"},{time:"15:00 🏞️",text:"松島天空步道"},{time:"19:00 🌃",text:"夜市小吃"}]},
-{day:"Day6 3/24",timeline:[{time:"08:00 🚗",text:"前往機場"},{time:"12:00 ✈️",text:"BX795"}]}
+{day:"Day1 3/19",timeline:[{time:"18:25 ✈️",text:"抵達金海機場",type:"travel"},{time:"21:00 🍜",text:"豬肉湯飯",type:"food"}]},
+{day:"Day2 3/20",timeline:[{time:"09:00 🏰",text:"甘川文化村",type:"activity"},{time:"12:00 🍲",text:"午餐：海鮮鍋",type:"food"},{time:"14:00 🛍️",text:"西面商圈逛街",type:"activity"},{time:"18:00 🌉",text:"廣安大橋夜景",type:"activity"}]},
+{day:"Day3 3/21",timeline:[{time:"08:00 🚗",text:"前往海雲台",type:"transport"},{time:"10:00 🏖️",text:"海雲台海灘散步",type:"activity"},{time:"12:00 🍴",text:"午餐：韓式烤肉",type:"food"},{time:"15:00 🏞️",text:"APEC會議場景",type:"activity"},{time:"19:00 🍜",text:"晚餐：豬肉湯飯",type:"food"}]},
+{day:"Day4 3/22",timeline:[{time:"09:00 🛍️",text:"樂天百貨購物",type:"activity"},{time:"12:00 🍲",text:"午餐：炸雞啤酒",type:"food"},{time:"14:00 🏯",text:"東萊古寺參觀",type:"activity"},{time:"17:00 ☕",text:"咖啡廳休息",type:"activity"}]},
+{day:"Day5 3/23",timeline:[{time:"08:30 🚗",text:"前往影島",type:"transport"},{time:"11:00 🏝️",text:"影島海邊散步",type:"activity"},{time:"13:00 🍴",text:"午餐：海鮮餐廳",type:"food"},{time:"15:00 🏞️",text:"松島天空步道",type:"activity"},{time:"19:00 🌃",text:"夜市小吃",type:"food"}]},
+{day:"Day6 3/24",timeline:[{time:"08:00 🚗",text:"前往機場",type:"transport"},{time:"12:00 ✈️",text:"BX795",type:"travel"}]}
 ];
 const schedulePage=document.getElementById("schedule-page");
 days.forEach(d=>{
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`<h2>${d.day}</h2><div class="timeline"></div>`;
-  const tl=card.querySelector(".timeline");
-  d.timeline.forEach(t=>{
-    const div=document.createElement("div");
-    div.className="timeline-item";
-    div.innerHTML=`<div class="time">${t.time}</div>${t.text}`;
-    tl.appendChild(div);
-  });
-  schedulePage.appendChild(card);
+const card=document.createElement("div");card.className="card";
+card.innerHTML=`<h2>${d.day}</h2><div class="timeline"></div>`;
+const tl=card.querySelector(".timeline");
+d.timeline.forEach(t=>{
+const div=document.createElement("div");
+div.className="timeline-item "+t.type;
+div.innerHTML=`<div class="time">${t.time}</div>${t.text}`;
+tl.appendChild(div);
+});
+schedulePage.appendChild(card);
 });
 
 /* 清單資料 */
@@ -146,41 +158,34 @@ const defaults={
 let data=JSON.parse(localStorage.getItem("busanList"))||{};
 for(let key in defaults){if(!data[key]) data[key]=defaults[key].map(t=>({text:t,custom:false,checked:false}));}
 function save(){localStorage.setItem("busanList",JSON.stringify(data));}
-
 function renderChecklist(){
-  const page=document.getElementById("checklist-page");
-  page.innerHTML="";
-  for(let key in data){
-    const card=document.createElement("div");
-    card.className="card";
-    card.innerHTML=`<h2>${key}</h2>
-      <div id="${key}-list"></div>
-      <div class="add-area">
-        <input id="${key}-input" placeholder="新增項目">
-        <button onclick="addItem('${key}')">新增</button>
-      </div>`;
-    page.appendChild(card);
-    const list=card.querySelector(`#${key}-list`);
-    data[key].forEach((item,index)=>{
-      const div=document.createElement("div");
-      div.className="checklist-item";
-      const content=document.createElement("div");
-      content.className="checklist-content";
-      content.innerHTML=`<label><input type="checkbox" ${item.checked?"checked":""} onchange="toggleCheck('${key}',${index})">${item.text}</label>`;
-      div.appendChild(content);
-      if(item.custom){
-        const del=document.createElement("button");
-        del.className="delete-btn";
-        del.innerText="刪除";
-        del.onclick=()=>{data[key].splice(index,1);save();renderChecklist();}
-        div.appendChild(del);
-      }
-      list.appendChild(div);
-    });
-  }
+const page=document.getElementById("checklist-page");page.innerHTML="";
+for(let key in data){
+const card=document.createElement("div");card.className="card";
+card.innerHTML=`<h2 onclick="toggleCollapse('${key}')">${key}</h2>
+<div class="collapse" id="${key}-list"></div>
+<div class="add-area">
+<input id="${key}-input" placeholder="新增項目">
+<button onclick="addItem('${key}')">新增</button>
+</div>`;
+page.appendChild(card);
+const list=card.querySelector(`#${key}-list`);
+data[key].forEach((item,index)=>{
+const div=document.createElement("div");div.className="checklist-item";
+const content=document.createElement("div");content.className="checklist-content";
+content.innerHTML=`<label><input type="checkbox" ${item.checked?"checked":""} onchange="toggleCheck('${key}',${index})">${item.text}</label>`;
+div.appendChild(content);
+if(item.custom){
+const del=document.createElement("button");del.className="delete-btn";del.innerText="刪除";
+del.onclick=()=>{data[key].splice(index,1);save();renderChecklist();}
+div.appendChild(del);
 }
+list.appendChild(div);
+});
+}}
 function toggleCheck(type,index){data[type][index].checked=!data[type][index].checked;save();}
 function addItem(type){const input=document.getElementById(type+"-input");if(!input.value)return;data[type].push({text:input.value,custom:true,checked:false});save();renderChecklist();}
+function toggleCollapse(key){const el=document.getElementById(key+'-list');el.style.display=(el.style.display==='block')?'none':'block';}
 renderChecklist();
 </script>
 </body>
