@@ -72,6 +72,7 @@ box-shadow:0 6px 18px rgba(0,0,0,0.08);
 h2{
 margin:0 0 10px 0;
 color:var(--deep);
+cursor:pointer;
 }
 
 .timeline{
@@ -126,7 +127,10 @@ display:block;
 margin-bottom:5px;
 }
 
-/* 底部導覽 */
+.list-collapse{
+display:none;
+}
+
 .tabbar{
 position:fixed;
 bottom:0;
@@ -163,6 +167,7 @@ BUSAN TRAVEL
 
 <!-- 行程表 -->
 <div class="page">
+<!-- Day1 -->
 <div class="card">
 <h2>Day1 3/19</h2>
 <div class="timeline">
@@ -171,6 +176,53 @@ BUSAN TRAVEL
 </div>
 </div>
 
+<!-- Day2 -->
+<div class="card">
+<h2>Day2 3/20</h2>
+<div class="timeline">
+<div class="timeline-item"><div class="time">09:00 🏰</div>甘川文化村</div>
+<div class="timeline-item"><div class="time">12:00 🍲</div>午餐：海鮮鍋</div>
+<div class="timeline-item"><div class="time">14:00 🛍️</div>西面商圈逛街</div>
+<div class="timeline-item"><div class="time">18:00 🌉</div>廣安大橋夜景</div>
+</div>
+</div>
+
+<!-- Day3 -->
+<div class="card">
+<h2>Day3 3/21</h2>
+<div class="timeline">
+<div class="timeline-item"><div class="time">08:00 🚗</div>前往海雲台</div>
+<div class="timeline-item"><div class="time">10:00 🏖️</div>海雲台海灘散步</div>
+<div class="timeline-item"><div class="time">12:00 🍴</div>午餐：韓式烤肉</div>
+<div class="timeline-item"><div class="time">15:00 🏞️</div>APEC會議場景</div>
+<div class="timeline-item"><div class="time">19:00 🍜</div>晚餐：豬肉湯飯</div>
+</div>
+</div>
+
+<!-- Day4 -->
+<div class="card">
+<h2>Day4 3/22</h2>
+<div class="timeline">
+<div class="timeline-item"><div class="time">09:00 🛍️</div>樂天百貨購物</div>
+<div class="timeline-item"><div class="time">12:00 🍲</div>午餐：炸雞啤酒</div>
+<div class="timeline-item"><div class="time">14:00 🏯</div>東萊古寺參觀</div>
+<div class="timeline-item"><div class="time">17:00 ☕</div>咖啡廳休息</div>
+</div>
+</div>
+
+<!-- Day5 -->
+<div class="card">
+<h2>Day5 3/23</h2>
+<div class="timeline">
+<div class="timeline-item"><div class="time">08:30 🚗</div>前往影島</div>
+<div class="timeline-item"><div class="time">11:00 🏝️</div>影島海邊散步</div>
+<div class="timeline-item"><div class="time">13:00 🍴</div>午餐：海鮮餐廳</div>
+<div class="timeline-item"><div class="time">15:00 🏞️</div>松島天空步道</div>
+<div class="timeline-item"><div class="time">19:00 🌃</div>夜市小吃</div>
+</div>
+</div>
+
+<!-- Day6 -->
 <div class="card">
 <h2>Day6 3/24</h2>
 <div class="timeline">
@@ -264,8 +316,8 @@ page.innerHTML="";
 for(let key in data){
 const card=document.createElement("div");
 card.className="card";
-card.innerHTML=`<h2>${key}</h2>
-<div id="${key}-list"></div>
+card.innerHTML=`<h2 onclick="toggleCollapse('${key}')">${key}</h2>
+<div class="list-collapse" id="${key}-list"></div>
 <div class="add-area">
 <input id="${key}-input" placeholder="新增項目">
 <button onclick="addItem('${key}')">新增</button>
@@ -312,6 +364,12 @@ div.appendChild(del);
 list.appendChild(div);
 });
 }
+}
+
+// 折疊功能
+function toggleCollapse(key){
+const el=document.getElementById(key+'-list');
+el.style.display = el.style.display==='block'?'none':'block';
 }
 
 function toggleCheck(type,index){
