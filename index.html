@@ -45,7 +45,7 @@ opacity:0.9;
 display:flex;
 width:300%;
 height:calc(100vh - 120px);
-transition:transform 0.3s ease;
+transition:transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .page{
 width:100%;
@@ -141,8 +141,8 @@ BUSAN TRAVEL
 
 <div class="app" id="app">
 <!-- 行程表 -->
-<div class="page" id="schedule-page">
-</div>
+<div class="page" id="schedule-page"></div>
+
 <!-- 航班 -->
 <div class="page">
 <div class="card">
@@ -158,6 +158,7 @@ BUSAN TRAVEL
 <p>抵達地：高雄小港機場第一航廈 Terminal1</p>
 </div>
 </div>
+
 <!-- 清單 -->
 <div class="page" id="checklist-page"></div>
 </div>
@@ -169,12 +170,13 @@ BUSAN TRAVEL
 </div>
 
 <script>
-/* 分頁切換 */
 let current=0;
 const app=document.getElementById("app");
+
+/* Tab 切換動畫 */
 function goPage(index){
 current=index;
-app.style.transition="transform 0.3s ease";
+app.style.transition="transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)";
 app.style.transform=`translateX(-${index*100}%)`;
 document.querySelectorAll(".tabbar button").forEach((b,i)=>b.classList.toggle("active",i===index));
 }
@@ -185,7 +187,7 @@ const today=new Date();
 const diff=Math.ceil((tripDate-today)/(1000*60*60*24));
 document.getElementById("countdown").innerText=diff>0?`距離出發還有 ${diff} 天`:"旅程中 ✈️";
 
-/* 每日行程資料 */
+/* 每日行程 Day1~Day6 */
 const days=[
 {day:"Day1 3/19",timeline:[{time:"18:25 ✈️",text:"抵達金海機場"},{time:"21:00 🍜",text:"豬肉湯飯"}]},
 {day:"Day2 3/20",timeline:[{time:"09:00 🏰",text:"甘川文化村"},{time:"12:00 🍲",text:"午餐：海鮮鍋"},{time:"14:00 🛍️",text:"西面商圈逛街"},{time:"18:00 🌉",text:"廣安大橋夜景"}]},
@@ -249,8 +251,7 @@ div.className="checklist-item";
 const content=document.createElement("div");
 content.className="checklist-content";
 content.innerHTML=`<label>
-<input type="checkbox" ${item.checked?"checked":""}
-onchange="toggleCheck('${key}',${index})">
+<input type="checkbox" ${item.checked?"checked":""} onchange="toggleCheck('${key}',${index})">
 ${item.text}
 </label>`;
 div.appendChild(content);
