@@ -78,6 +78,7 @@ position:absolute;left:-12px;top:6px;background:var(--main);
 .timeline-item.food{border-left-color:var(--food);}
 .timeline-item.transport{border-left-color:var(--transport);}
 .timeline-item.activity{border-left-color:var(--activity);}
+.notice{color:red;margin-top:8px;font-size:13px;}
 </style>
 </head>
 <body>
@@ -87,23 +88,42 @@ BUSAN TRAVEL
 <div class="countdown" id="countdown"></div>
 </header>
 
+<!-- 行程頁面 -->
 <div class="page active" id="schedule-page"></div>
+
+<!-- 航班頁面 -->
 <div class="page" id="flight-page">
 <div class="card">
-<h2>去程航班</h2>
+<h2>⚠️ 去程航班</h2>
 <p>3/19 15:00 ➜ 18:25 BX796</p>
 <p>出發：高雄小港機場第一航廈 Terminal1</p>
 <p>抵達：釜山金浦機場第一航廈 Terminal1</p>
+<div class="notice">
+行動電源要放隨身行李<br>
+液體放行李箱!<br>
+手提行李 10KG / 托運行李 15KG<br>
+有加費用托運行李增至23KG
 </div>
+</div>
+
 <div class="card">
-<h2>回程航班</h2>
+<h2>⚠️ 回程航班</h2>
 <p>3/24 12:00 ➜ 14:00 BX795</p>
 <p>出發：釜山金浦機場第一航廈 Terminal1</p>
 <p>抵達：高雄小港機場第一航廈 Terminal1</p>
+<div class="notice">
+行動電源要放隨身行李<br>
+液體放行李箱!<br>
+手提行李 10KG / 托運行李 15KG<br>
+有加費用托運行李增至23KG
 </div>
 </div>
+</div>
+
+<!-- 清單頁面 -->
 <div class="page" id="checklist-page"></div>
 
+<!-- 底部導覽 -->
 <div class="tabbar">
 <button class="active" onclick="showPage('schedule-page',this)">行程</button>
 <button onclick="showPage('flight-page',this)">航班</button>
@@ -111,7 +131,7 @@ BUSAN TRAVEL
 </div>
 
 <script>
-/* Tab 切換 */
+// 分頁切換
 function showPage(id,btn){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
@@ -119,12 +139,12 @@ document.querySelectorAll('.tabbar button').forEach(b=>b.classList.remove('activ
 btn.classList.add('active');
 }
 
-/* 倒數 */
+// 倒數
 const tripDate=new Date("2026-03-19");
 document.getElementById("countdown").innerText=
 Math.ceil((tripDate-new Date())/(1000*60*60*24))>0?`距離出發還有 ${Math.ceil((tripDate-new Date())/(1000*60*60*24))} 天`:"旅程中 ✈️";
 
-/* 行程表 Day1~6 加 icon 與交通時間 */
+// 行程表資料 Day1~Day6
 const days=[
 {day:"Day1 3/19 (週四)",timeline:[
   {time:"18:25 ✈️",text:"抵達金海機場 (BX796)",type:"travel"},
@@ -170,13 +190,28 @@ const days=[
 ]}
 ];
 
-/* 清單資料 */
+// 渲染行程表
+const schedulePage=document.getElementById("schedule-page");
+days.forEach(d=>{
+const card=document.createElement("div");card.className="card";
+card.innerHTML=`<h2>${d.day}</h2><div class="timeline"></div>`;
+const tl=card.querySelector(".timeline");
+d.timeline.forEach(t=>{
+const div=document.createElement("div");
+div.className="timeline-item "+t.type;
+div.innerHTML=`<div class="time">${t.time}</div>${t.text}`;
+tl.appendChild(div);
+});
+schedulePage.appendChild(card);
+});
+
+// 清單資料
 const defaults={
 "重要文件":["護照","機票(紙本)","台幣(2w以上建議多帶一些)","外幣(韓圓)","住宿資訊","交通資訊","門票資訊","信用卡","wowpass"],
 "3C產品":["充電線","充電器","行動電源","轉接器","wifi機","耳機","電子磅秤","壓縮機"],
 "盥洗用品":["洗面乳","卸妝乳","沐浴乳","洗髮乳","洗臉巾","棉花棒","牙膏牙刷","卸妝棉","香水","髮油","保養品","防曬","浴巾","髮巾","毛巾","梳子","髮夾","髮捲"],
 "衣物備品":["貼身衣物(內衣褲)","衣服","褲子","外套","睡衣","襪子","室內拖","拖鞋","圍巾","帽子","手套","隱形眼鏡","眼鏡","藥水","衣服壓縮袋","吹風機","濕紙巾","衛生紙","飲料提袋","牙線"],
-"提醒事項":["1. 吹風機要確認有接受220V","2. 投保旅平不便險","3. 氣溫約3-15度，海邊風大，早晚溫差大"]
+"提醒事項":["1. 吹風機要確認有接受220V","2. 投保旅平不便險","3. 氣溫約3-15度，海邊風大，早晚溫差大","行動電源要放隨身行李","液體放行李箱!","手提行李 10KG / 托運行李 15KG","有加費用托運行李增至23KG"]
 };
 let data=JSON.parse(localStorage.getItem("busanList"))||{};
 for(let key in defaults){if(!data[key]) data[key]=defaults[key].map(t=>({text:t,custom:false,checked:false}));}
@@ -211,6 +246,6 @@ function addItem(type){const input=document.getElementById(type+"-input");if(!in
 function toggleCollapse(key){const el=document.getElementById(key+'-list');el.style.display=(el.style.display==='block')?'none':'block';}
 renderChecklist();
 </script>
+
 </body>
 </html>
-
