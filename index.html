@@ -146,7 +146,8 @@
         </div>
 
         <div id="page-pack" class="page">
-            <h1>行李清單</h1>
+<h1>行李清單</h1>
+            
             <div class="list-group">
                 <div class="list-group-header" onclick="toggleGroup(this)">
                     <div class="header-left"><span class="arrow">▼</span><span class="list-group-title">重要文件</span><span class="progress-text" id="prog-docs">(0/8)</span></div>
@@ -155,12 +156,52 @@
                 <div class="list-content" id="list-docs">
                     <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>護照</span></label>
                     <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>機票 (紙本)</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>台幣</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>韓圓</span></label>
                     <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>WOWPASS</span></label>
-                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>信用卡 / 台幣 / 韓圓</span></label>
-                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>住宿/門票憑證</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>信用卡</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>住宿憑證</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>門票憑證</span></label>
                 </div>
             </div>
+
+            <div class="list-group">
+                <div class="list-group-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><span class="arrow">▼</span><span class="list-group-title">3C 產品</span><span class="progress-text" id="prog-3c">(0/8)</span></div>
+                    <button class="add-btn-small" onclick="event.stopPropagation(); quickAdd('list-3c', 'prog-3c')">+</button>
+                </div>
+                <div class="list-content" id="list-3c">
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>充電線</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>充電頭</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>行動電源</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>韓國轉接頭</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>Wifi 機</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>藍牙耳機</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>電子行李秤</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>真空壓縮機</span></label>
+                </div>
             </div>
+
+            <div class="list-group">
+                <div class="list-group-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><span class="arrow">▼</span><span class="list-group-title">盥洗用品</span><span class="progress-text" id="prog-wash">(0/11)</span></div>
+                    <button class="add-btn-small" onclick="event.stopPropagation(); quickAdd('list-wash', 'prog-wash')">+</button>
+                </div>
+                <div class="list-content" id="list-wash">
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>洗面乳</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>卸妝乳</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>沐浴乳</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>洗髮乳</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>潤髮乳</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>牙刷</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>牙膏</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>棉花棒</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>洗臉巾</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>大浴巾</span></label>
+                    <label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>梳子</span></label>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="nav-bar">
@@ -214,3 +255,4 @@
 </script>
 </body>
 </html>
+
