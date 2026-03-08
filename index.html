@@ -2,232 +2,297 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Busan Travel App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>釜山旅遊手冊 2026</title>
+
 <style>
 :root{
---main:#5C7A89;
---deep:#3E5561;
---light:#F1F3F4;
---text:#333;
---travel:#FF6B6B;
---food:#FFA94D;
---transport:#339AF0;
---activity:#51CF66;
+    --main: #5C7A89;
+    --deep: #3E5561;
+    --accent: #E67E22;
+    --bg: #F4F7F9;
+    --glass: rgba(255,255,255,0.95);
+    --text: #333;
 }
+
 body{
-margin:0;
-font-family:"Noto Sans TC",sans-serif;
-color:var(--text);
-background:url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") no-repeat center center fixed;
-background-size:cover;
+    margin:0;
+    font-family:"Noto Sans TC", sans-serif;
+    color:var(--text);
+    background:#e5e7eb;
+    background-image: linear-gradient(rgba(244,247,249,0.8), rgba(244,247,249,0.8)), url("https://images.unsplash.com/photo-1578301978018-3005759f48f7");
+    background-size:cover;
+    background-attachment: fixed;
+    padding-bottom: 80px;
 }
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-background:rgba(240,242,243,0.85);
-backdrop-filter:blur(4px);
-z-index:-1;
-}
+
 header{
-background:var(--deep);
-color:white;
-text-align:center;
-padding:16px;
-font-size:18px;
+    background: var(--deep);
+    color: white;
+    text-align: center;
+    padding: 20px 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-.countdown{font-size:13px;margin-top:4px;opacity:0.9;}
-.page{
-position:absolute;
-top:80px; bottom:60px; left:0; right:0;
-overflow-y:auto;
-padding:15px;
-box-sizing:border-box;
-display:none;
+
+.countdown{ font-size:13px; margin-top:6px; opacity:0.9; font-weight: 300; }
+
+/* 容器與分頁 */
+.app-container { overflow: hidden; }
+.app{
+    display:flex;
+    width:300%;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.page.active{display:block;}
+
+.page{ width:100%; padding:15px; box-sizing: border-box; }
+
 .card{
-background:var(--light);
-padding:16px;
-margin-bottom:18px;
-border-radius:14px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    background: var(--glass);
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
-h2{margin:0 0 10px 0;color:var(--deep);}
-.timeline{border-left:4px solid var(--main);padding-left:15px;margin-left:10px;}
-.timeline-item{margin-bottom:12px;position:relative;padding-left:10px;}
-.timeline-item::before{
-content:'';
-width:10px;height:10px;border-radius:50%;
-position:absolute;left:-12px;top:6px;background:var(--main);
+
+h2{ margin:0 0 15px 0; color:var(--deep); font-size: 1.15rem; display: flex; align-items: center;}
+h2::before { content: ""; width: 4px; height: 18px; background: var(--main); margin-right: 10px; border-radius: 2px; }
+
+/* 提醒事項樣式 */
+.warning-card { background: #FFF5F5; border: 1px solid #FED7D7; }
+.warning-item { font-size: 14px; margin-bottom: 5px; color: #C53030; display: flex; align-items: center;}
+
+/* 航班資訊樣式 */
+.flight-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #ddd; }
+.airport-box { font-size: 13px; line-height: 1.5; flex: 1; }
+.flight-arrow { padding: 0 10px; color: var(--main); font-weight: bold; }
+.terminal-tag { font-size: 11px; background: #E2E8F0; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+
+/* --- 大按鈕清單樣式 --- */
+.checklist-container { display: flex; flex-direction: column; gap: 8px; }
+.list-item-btn {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 14px 18px;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
 }
-.time{font-weight:bold;color:var(--deep);}
-.checklist-item{padding:8px 0;border-bottom:1px solid #eee;}
-input[type="checkbox"]{margin-right:8px;}
-.tabbar{position:fixed;bottom:0;left:0;right:0;display:flex;background:white;border-top:1px solid #ddd;z-index:100;}
-.tabbar button{flex:1;padding:14px;border:none;background:none;font-size:14px;}
-.tabbar button.active{color:var(--deep);font-weight:bold;}
-.notice{color:red;margin-top:8px;font-size:13px;}
-.timeline-item.travel{border-left-color:var(--travel);}
-.timeline-item.food{border-left-color:var(--food);}
-.timeline-item.transport{border-left-color:var(--transport);}
-.timeline-item.activity{border-left-color:var(--activity);}
+.list-item-btn.is-checked { background: #F8FAFC; border-color: #CBD5E0; opacity: 0.6; }
+.list-item-btn.is-checked span { text-decoration: line-through; color: #94A3B8; }
+.list-item-btn input { width: 20px; height: 20px; margin-right: 15px; pointer-events: none; }
+.list-item-btn span { font-size: 16px; font-weight: 500; }
+
+.cat-label { background: var(--deep); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-bottom: 10px; display: inline-block; }
+
+/* 相簿樣式 */
+.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px; }
+.photo-item { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; background: #eee; }
+.upload-label { 
+    background: var(--main); color: white; padding: 12px; border-radius: 12px; 
+    text-align: center; display: block; font-weight: bold; cursor: pointer;
+}
+
+/* 底部導覽 */
+.tabbar{
+    position:fixed; bottom:0; left:0; right:0;
+    display:flex; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+    border-top:1px solid #EEE; z-index: 1000; padding-bottom: env(safe-area-inset-bottom);
+}
+.tabbar button{ flex:1; padding:18px 10px; border:none; background:none; font-size:14px; color: #94A3B8; transition: 0.3s;}
+.tabbar button.active{ color:var(--deep); font-weight:bold; }
+.tabbar button.active::after { content: ""; position: absolute; bottom: 0; left: 25%; width: 50%; height: 3px; background: var(--deep); border-radius: 3px 3px 0 0; }
 </style>
 </head>
 <body>
 
 <header>
-BUSAN TRAVEL
-<div class="countdown" id="countdown"></div>
+    BUSAN 2026 ✈️
+    <div class="countdown" id="countdown">載入中...</div>
 </header>
 
-<!-- 行程表頁面 -->
-<div class="page active" id="schedule-page"></div>
+<div class="app-container">
+    <div class="app" id="app">
+        
+        <div class="page">
+            <div class="card warning-card">
+                <h2>旅遊提醒</h2>
+                <div class="warning-item">🔌 吹風機確認需支援 220V</div>
+                <div class="warning-item">🛡️ 投保旅平險與不便險</div>
+                <div class="warning-item">🌡️ 氣溫 3-15度，注意海邊強風</div>
+            </div>
 
-<!-- 航班頁面 -->
-<div class="page" id="flight-page">
-<div class="card">
-<h2>去程航班</h2>
-<p>3/19 15:00 ➜ 18:25 BX796</p>
-<p>出發：高雄小港機場第一航廈 Terminal1</p>
-<p>抵達：釜山金浦機場第一航廈 Terminal1</p>
+            <div class="card">
+                <h2>Day 1 (3/19)</h2>
+                <div style="line-height: 1.8; font-size: 15px;">
+                    <b>18:25</b> 抵達金海機場<br>
+                    <b>21:00</b> 享用釜山豬肉湯飯
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📸 旅途相簿</h2>
+                <label class="upload-label">
+                    ＋ 上傳照片紀錄
+                    <input type="file" id="photo-input" accept="image/*" multiple style="display:none">
+                </label>
+                <div class="photo-grid" id="photo-grid"></div>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="card">
+                <div class="cat-label">去程 BX796</div>
+                <div class="flight-row">
+                    <div class="airport-box">
+                        <strong>高雄小港 KHH</strong><br>
+                        <span class="terminal-tag">第一航廈 T1</span>
+                    </div>
+                    <div class="flight-arrow">➜</div>
+                    <div class="airport-box" style="text-align: right;">
+                        <strong>釜山金浦 PUS</strong><br>
+                        <span class="terminal-tag">第一航廈 T1</span>
+                    </div>
+                </div>
+                <div style="font-size: 14px; color: #666;">時間：3/19 15:00 - 18:25</div>
+            </div>
+
+            <div class="card">
+                <div class="cat-label">回程 BX795</div>
+                <div class="flight-row">
+                    <div class="airport-box">
+                        <strong>釜山金浦 PUS</strong><br>
+                        <span class="terminal-tag">第一航廈 T1</span>
+                    </div>
+                    <div class="flight-arrow">➜</div>
+                    <div class="airport-box" style="text-align: right;">
+                        <strong>高雄小港 KHH</strong><br>
+                        <span class="terminal-tag">第一航廈 T1</span>
+                    </div>
+                </div>
+                <div style="font-size: 14px; color: #666;">時間：3/24 12:00 - 14:00</div>
+            </div>
+        </div>
+
+        <div class="page" id="checklist-page"></div>
+    </div>
 </div>
 
-<div class="card">
-<h2>回程航班</h2>
-<p>3/24 12:00 ➜ 14:00 BX795</p>
-<p>出發：釜山金浦機場第一航廈 Terminal1</p>
-<p>抵達：高雄小港機場第一航廈 Terminal1</p>
-</div>
-
-<div class="card">
-<h2>⚠️ 注意事項</h2>
-<p>行動電源要放隨身行李<br>
-液體放行李箱!<br>
-手提行李 10KG / 托運行李 15KG<br>
-有加費用托運行李增至23KG</p>
-</div>
-</div>
-
-<!-- 清單頁面 -->
-<div class="page" id="checklist-page"></div>
-
-<!-- 底部導覽 -->
 <div class="tabbar">
-<button class="active" onclick="showPage('schedule-page',this)">行程</button>
-<button onclick="showPage('flight-page',this)">航班</button>
-<button onclick="showPage('checklist-page',this)">清單</button>
+    <button class="active" onclick="goPage(0)">行程回顧</button>
+    <button onclick="goPage(1)">航班資訊</button>
+    <button onclick="goPage(2)">行李清單</button>
 </div>
 
 <script>
-// 分頁切換
-function showPage(id,btn){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-document.querySelectorAll('.tabbar button').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
+/* 基礎設定 */
+let current = 0;
+const app = document.getElementById("app");
+
+function goPage(index){
+    current = index;
+    app.style.transform = `translateX(-${index*100}%)`;
+    document.querySelectorAll(".tabbar button").forEach((b,i)=> b.classList.toggle("active", i===index));
+    window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-// 倒數
-const tripDate=new Date("2026-03-19");
-document.getElementById("countdown").innerText=
-Math.ceil((tripDate-new Date())/(1000*60*60*24))>0?`距離出發還有 ${Math.ceil((tripDate-new Date())/(1000*60*60*24))} 天`:"旅程中 ✈️";
+/* 倒數日期 */
+const tripDate = new Date("2026-03-19");
+setInterval(() => {
+    const now = new Date();
+    const diff = tripDate - now;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("countdown").innerText = days >= 0 ? `距離出發還有 ${days} 天` : "正在享受釜山之旅 ✈️";
+}, 1000);
 
-// 行程表資料
-const days=[
-{day:"Day1 3/19 (週四)",timeline:[
-  {time:"18:25 ✈️",text:"抵達金海機場 (BX796)",type:"travel"},
-  {time:"19:30 🚗",text:"搭乘包車前往飯店（車程60分鐘）",type:"transport"},
-  {time:"20:30 🏨",text:"飯店 Check-in：Best Western 海雲台",type:"activity"},
-  {time:"21:00 🍴",text:"晚餐：水邊最高豬肉湯飯 (步行 1 分鐘)",type:"food"}
-]},
-{day:"Day2 3/20 (週五)",timeline:[
-  {time:"08:30 🍳",text:"早餐 Egg Drop 海雲台店 (走路7分鐘) 9:45離開",type:"food"},
-  {time:"10:30 🏞️",text:"甘川文化村-小王子 (車程40分鐘) 12點離開",type:"activity"},
-  {time:"12:15 - 15:00 🛍️",text:"國際市場、光復路購物街、樂天百貨 (買棉被-逛街購物-午餐) 車程15分鐘",type:"activity"},
-  {time:"15:00 🗼",text:"釜山塔 步行至手扶梯",type:"activity"},
-  {time:"16:10 🚇",text:"搭地鐵至西面吃飯+逛街7站 (地鐵25分鐘) W1600",type:"transport"},
-  {time:"16:30 🍖",text:"晚餐：83 獬豸烤肉 (派人先抽號碼牌) 回程：搭地鐵15站 (地鐵40分鐘) W1800",type:"food"}
-]},
-{day:"Day3 3/21 (週六)",timeline:[
-  {time:"09:30 🍞",text:"早餐 OPS 烘培屋 (走路7分鐘)",type:"food"},
-  {time:"10:00 🏬",text:"新世界百貨 Centum City 午餐 14:00離開",type:"activity"},
-  {time:"14:30 🛒",text:"E-mart 海雲台店 (伴手禮採買) 16:00離開",type:"activity"},
-  {time:"16:00 🏨",text:"返回住宿放東西",type:"activity"},
-  {time:"17:00 🌊",text:"廣安里海灘+無人機秀(晚上8點) 搭地鐵5站(地鐵20分鐘) W1600",type:"activity"}
-]},
-{day:"Day4 3/22 (週日)",timeline:[
-  {time:"08:30 🍳",text:"早餐超商",type:"food"},
-  {time:"09:00 🏯",text:"東海龍宮 譽為韓國最美寺廟之一 10:30離開 (車程25分鐘)",type:"activity"},
-  {time:"10:45 🚡",text:"斜坡滑車 (Skyline Luge) 12點前離開 走路10分鐘 啟用VBP免費玩2次",type:"activity"},
-  {time:"12:30 🍲",text:"尾浦站附近 午餐(車程20分鐘) 15:00離開",type:"food"},
-  {time:"15:00 🚆",text:"搭乘海岸列車 (尾浦➡️海月展望台)",type:"transport"},
-  {time:"16:00 🚆",text:"搭乘海岸列車 (海月展望台➡️青沙浦)",type:"transport"},
-  {time:"17:30-18:00 🚆",text:"搭乘膠囊列車(青沙浦➡️尾浦)",type:"transport"},
-  {time:"18:15 🌃",text:"釜山 X the SKY 100F夜景與世界最高的星巴克 走路7分鐘VBP持卡免費 回程：步行回飯店(走路14分)",type:"activity"}
-]},
-{day:"Day5 3/23 (週一)",timeline:[
-  {time:"09:00 🍳",text:"早餐超商 (車程40分鐘)",type:"food"},
-  {time:"09:40 🖼️",text:"ARTE MUSEUM Busan 釜山藝術博物館 VBP持卡免費 11點離開",type:"activity"},
-  {time:"11:10 ☕",text:"Thrill on the Mug 咖啡廳 12:30離開 車程10分鐘",type:"food"},
-  {time:"13:00 🏖️",text:"海雲台傳統市場巡禮 海雲台沙灘 車程40分鐘",type:"activity"},
-  {time:"17:00 🛍️",text:"飯店附近最後補漏採買(藥妝 超商 大創等等…) 行李整理 秤重量",type:"activity"}
-]},
-{day:"Day6 3/24 (週二)",timeline:[
-  {time:"08:00 🚗",text:"出發金海機場 預約包車（車程 60 分鐘）",type:"transport"},
-  {time:"12:00 ✈️",text:"BX795 起飛",type:"travel"}
-]}
-];
-
-// 渲染行程表
-const schedulePage=document.getElementById("schedule-page");
-days.forEach(d=>{
-const card=document.createElement("div");card.className="card";
-card.innerHTML=`<h2>${d.day}</h2><div class="timeline"></div>`;
-const tl=card.querySelector(".timeline");
-d.timeline.forEach(t=>{
-const div=document.createElement("div");
-div.className="timeline-item "+t.type;
-div.innerHTML=`<div class="time">${t.time}</div>${t.text}`;
-tl.appendChild(div);
-});
-schedulePage.appendChild(card);
-});
-
-// 清單資料
-const checklistData={
-"重要文件":["護照","機票(紙本)","台幣(2w以上建議多帶一些)","外幣(韓圓)","住宿資訊","交通資訊","門票資訊","信用卡","wowpass"],
-"3C產品":["充電線","充電器","行動電源","轉接器","wifi機","耳機","電子磅秤","壓縮機"],
-"盥洗用品":["洗面乳","卸妝乳","沐浴乳","洗髮乳","洗臉巾","棉花棒","牙膏牙刷","卸妝棉","香水","髮油","保養品","防曬","浴巾","髮巾","毛巾","梳子","髮夾","髮捲"],
-"衣物備品":["貼身衣物(內衣褲)","衣服","褲子","外套","睡衣","襪子","室內拖","拖鞋","圍巾","帽子","手套","隱形眼鏡","眼鏡","藥水","衣服壓縮袋","吹風機","濕紙巾","衛生紙","飲料提袋","牙線"],
-"提醒事項":["1. 吹風機要確認有接受220V","2. 投保旅平不便險","3. 氣溫約3-15度，海邊風大，早晚溫差大"]
+/* 行李資料 */
+const initialData = {
+    "重要文件": ["護照","機票(紙本)","台幣(2w以上)","外幣(韓圓)","住宿資訊","交通資訊","門票資訊","信用卡","wowpass"],
+    "3C產品": ["充電線","充電器","行動電源","轉接器","wifi機","耳機","電子磅秤","壓縮機"],
+    "盥洗用品": ["洗面乳","卸妝乳","沐浴乳","洗髮乳","洗臉巾","棉花棒","牙膏牙刷","卸妝棉","香水","髮油","保養品","防曬","浴巾","髮巾","毛巾","梳子","髮夾","髮捲"],
+    "衣物備品": ["貼身衣物(內衣褲)","衣服","褲子","外套","睡衣","襪子","室內拖","拖鞋","圍巾","帽子","手套","隱形眼鏡","眼鏡","藥水","衣服壓縮袋","吹風機","濕紙巾","衛生紙","飲料提袋","牙線"]
 };
-let data=JSON.parse(localStorage.getItem("busanList"))||{};
-for(let key in checklistData){if(!data[key]) data[key]=checklistData[key].map(t=>({text:t,checked:false}));}
-function save(){localStorage.setItem("busanList",JSON.stringify(data));}
-function renderChecklist(){
-const page=document.getElementById("checklist-page");
-page.innerHTML="";
-for(let key in data){
-const card=document.createElement("div");
-card.className="card";
-card.innerHTML=`<h2>${key}</h2>`;
-data[key].forEach(item=>{
-const div=document.createElement("div");
-div.className="checklist-item";
-div.innerHTML=`<label><input type="checkbox" ${item.checked?"checked":""} onchange="toggleCheck('${key}','${item.text}')">${item.text}</label>`;
-card.appendChild(div);
-});
-page.appendChild(card);
-}}
-function toggleCheck(type,text){
-const index=data[type].findIndex(i=>i.text===text);
-if(index>=0){data[type][index].checked=!data[type][index].checked;save();}
+
+let listData = JSON.parse(localStorage.getItem("busan_v3_data")) || {};
+if (Object.keys(listData).length === 0) {
+    for (let cat in initialData) {
+        listData[cat] = initialData[cat].map(t => ({ text: t, checked: false }));
+    }
 }
+
+function saveList() { localStorage.setItem("busan_v3_data", JSON.stringify(listData)); }
+
+function renderChecklist() {
+    const page = document.getElementById("checklist-page");
+    page.innerHTML = "";
+    
+    for (let cat in listData) {
+        const catContainer = document.createElement("div");
+        catContainer.style.marginBottom = "25px";
+        catContainer.innerHTML = `<div class="cat-label">${cat}</div>`;
+        
+        const listWrapper = document.createElement("div");
+        listWrapper.className = "checklist-container";
+
+        listData[cat].forEach((item, idx) => {
+            const btn = document.createElement("div");
+            btn.className = `list-item-btn ${item.checked ? 'is-checked' : ''}`;
+            btn.onclick = () => {
+                listData[cat][idx].checked = !listData[cat][idx].checked;
+                saveList();
+                renderChecklist();
+            };
+
+            btn.innerHTML = `
+                <input type="checkbox" ${item.checked ? "checked" : ""}>
+                <span>${item.text}</span>
+            `;
+            listWrapper.appendChild(btn);
+        });
+        
+        catContainer.appendChild(listWrapper);
+        page.appendChild(catContainer);
+    }
+}
+
+/* 照片系統 (IndexedDB) */
+let db;
+const request = indexedDB.open("BusanAlbum", 1);
+request.onupgradeneeded = e => e.target.result.createObjectStore("photos", { autoIncrement: true });
+request.onsuccess = e => { db = e.target.result; displayPhotos(); };
+
+document.getElementById("photo-input").addEventListener("change", e => {
+    for (let file of e.target.files) {
+        const reader = new FileReader();
+        reader.onload = ev => {
+            const tx = db.transaction("photos", "readwrite");
+            tx.objectStore("photos").add(ev.target.result);
+            tx.oncomplete = () => displayPhotos();
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+function displayPhotos() {
+    const grid = document.getElementById("photo-grid");
+    grid.innerHTML = "";
+    db.transaction("photos").objectStore("photos").openCursor(null, "prev").onsuccess = e => {
+        const cursor = e.target.result;
+        if (cursor) {
+            const img = document.createElement("img");
+            img.src = cursor.value;
+            img.className = "photo-item";
+            grid.appendChild(img);
+            cursor.continue();
+        }
+    };
+}
+
 renderChecklist();
 </script>
-
 </body>
 </html>
