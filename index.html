@@ -24,37 +24,34 @@
         h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); padding-bottom: 8px; margin-bottom: 15px; }
         .section-title { background: #e9f2f7; color: var(--primary-blue); padding: 4px 10px; border-radius: 4px; display: inline-block; margin: 15px 0 8px; font-weight: bold; font-size: 0.85rem; }
 
-        /* 倒數計時樣式 */
+        /* 倒數計時 */
         .countdown-container { background: var(--primary-blue); color: white; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
         .countdown-timer { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
 
         /* 行程樣式 */
-        .day-box { margin-bottom: 30px; }
+        .day-box { margin-bottom: 35px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
         .time-node { display: flex; margin-bottom: 12px; font-size: 0.95rem; align-items: flex-start; }
         .time-node .time { color: var(--primary-blue); font-weight: bold; width: 65px; flex-shrink: 0; }
         .time-node .desc { flex: 1; line-height: 1.5; }
         .note { font-size: 0.85rem; color: #777; margin-top: 2px; display: block; font-weight: normal; }
 
-        /* 摺疊清單樣式 */
-        .accordion-item { border: 1px solid #eee; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+        /* 摺疊清單 */
+        .accordion-item { border: 1px solid #eee; border-radius: 8px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .accordion-header { 
             background: #fdfdfd; padding: 15px; display: flex; justify-content: space-between; align-items: center; 
-            cursor: pointer; font-weight: bold; color: var(--primary-blue); border-bottom: 1px solid transparent;
+            cursor: pointer; font-weight: bold; color: var(--primary-blue);
         }
-        .accordion-header.active { border-bottom: 1px solid #eee; background: #f8fbfe; }
-        .accordion-content { display: none; padding: 5px 0; background: #fff; }
+        .accordion-header.active { background: #f8fbfe; border-bottom: 1px solid #eee; }
+        .accordion-content { display: none; padding: 0; background: #fff; }
         .accordion-content.active { display: block; }
-        .add-item-btn { 
-            background: var(--primary-blue); color: white; border: none; width: 24px; height: 24px; 
-            border-radius: 50%; font-size: 18px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
-        }
+        .add-item-btn { background: var(--primary-blue); color: white; border: none; width: 26px; height: 26px; border-radius: 50%; font-size: 20px; line-height: 1; display: flex; align-items: center; justify-content: center; }
 
-        /* 清單細項 */
+        /* 清單卡片 */
         .list-item { 
             display: flex; align-items: center; padding: 12px 15px; 
             border-bottom: 1px solid #f9f9f9; position: relative; overflow: hidden; touch-action: pan-y;
         }
-        .list-item input[type="checkbox"] { width: 18px; height: 18px; margin-right: 12px; accent-color: var(--primary-blue); }
+        .list-item input[type="checkbox"] { width: 18px; height: 18px; margin-right: 12px; accent-color: var(--primary-blue); flex-shrink: 0; }
         .list-item span { flex: 1; font-size: 0.95rem; color: #444; }
         .list-item input:checked + span { text-decoration: line-through; color: #bbb; }
 
@@ -83,48 +80,77 @@
 
             <h1>登機資訊 & 注意事項</h1>
             
-            <div class="section-title">釜山即時天氣</div>
-            <div style="background:#f0f7f9; padding:15px; border-radius:8px; font-size:1rem; margin-bottom:20px; color:#333;">
-                釜山目前氣溫約 6°C，天氣晴朗。
-            </div>
-
             <div class="section-title">行李打包規定</div>
             <div style="background:#fff3f0; padding:15px; border-radius:8px; font-size:0.95rem; line-height:1.7; border-left:5px solid var(--soft-red); margin-bottom:20px;">
-                • <b>行動電源：</b>務必隨身攜帶，不可托運。<br>
-                • <b>液體物品：</b>務必放托運行李箱。<br>
-                • <b>手提重量：</b>限制 10KG。<br>
-                • <b>托運重量：</b>23KG (已加購)。
+                • 行動電源：務必隨身攜帶<br>
+                • 液體物品：務必放托運行李箱<br>
+                • 手提：10KG / 托運：23KG (已加購)
             </div>
 
-            <div class="section-title">航班全名資訊</div>
+            <div class="section-title">航班全名</div>
             <div style="background:var(--bg-gray); padding:15px; border-radius:8px; font-size:0.95rem; line-height:1.6;">
-                <b>去程 3/19 (週四)</b><br>
-                15:00 高雄小港國際機場 (KHH) →<br>
-                18:25 釜山金海國際機場 (PUS)<br><br>
-                <b>回程 3/24 (週二)</b><br>
-                12:00 釜山金海國際機場 (PUS) →<br>
-                14:00 高雄小港國際機場 (KHH)
+                去程 3/19: 高雄小港國際機場 → 釜山金海國際機場<br>
+                回程 3/24: 釜山金海國際機場 → 高雄小港國際機場
             </div>
         </div>
 
         <div id="page-itinerary" class="page">
             <h1>行程規劃</h1>
+            
             <div class="day-box">
                 <div class="section-title">Day 1 : 3/19 (四)</div>
                 <div class="time-node"><div class="time">18:25</div><div class="desc">抵達金海機場 (BX796)</div></div>
-                <div class="time-node"><div class="time">19:30</div><div class="desc">搭乘包車前往飯店<span class="note">(車程 60 分鐘)</span></div></div>
-                <div class="time-node"><div class="time">21:00</div><div class="desc">晚餐：水邊最高豬肉湯飯<span class="note">(步行 1 分鐘)</span></div></div>
+                <div class="time-node"><div class="time">19:30</div><div class="desc">搭乘包車前往飯店<span class="note">車程 60 分鐘</span></div></div>
+                <div class="time-node"><div class="time">20:30</div><div class="desc">飯店 Check-in：Best Western 海雲台</div></div>
+                <div class="time-node"><div class="time">21:00</div><div class="desc">晚餐：水邊最高豬肉湯飯<span class="note">步行 1 分鐘</span></div></div>
             </div>
+
             <div class="day-box">
                 <div class="section-title">Day 2 : 3/20 (五)</div>
-                <div class="time-node"><div class="time">08:30</div><div class="desc">早餐 Egg Drop 海雲台店<span class="note">(步行 7 分鐘) / 9:45 離開</span></div></div>
-                <div class="time-node"><div class="time">10:30</div><div class="desc">甘川文化村-小王子<span class="note">(車程 40 分鐘) / 12:00 離開</span></div></div>
-                <div class="time-node"><div class="time">12:15</div><div class="desc">國際市場、光復路、樂天百貨<span class="note">(車程 15 分鐘) / 15:00 離開 (買棉被、午餐)</span></div></div>
-                <div class="time-node"><div class="time">16:10</div><div class="desc">地鐵至西面<span class="note">7 站 (25分) W1600 / 83獬豸烤肉(抽號碼牌)</span></div></div>
+                <div class="time-node"><div class="time">08:30</div><div class="desc">早餐 Egg Drop 海雲台店<span class="note">走路 7 分鐘 / 9:45 離開</span></div></div>
+                <div class="time-node"><div class="time">10:30</div><div class="desc">甘川文化村-小王子<span class="note">車程 40 分鐘 / 12:00 離開</span></div></div>
+                <div class="time-node"><div class="time">12:15</div><div class="desc">國際市場、光復路購物街、樂天百貨<span class="note">車程 15 分鐘 / 15:00 離開 (買棉被-逛街-午餐)</span></div></div>
+                <div class="time-node"><div class="time">15:00</div><div class="desc">釜山塔<span class="note">步行至手扶梯</span></div></div>
+                <div class="time-node"><div class="time">16:10</div><div class="desc">搭地鐵至西面<span class="note">7站 (25分鐘) W1600</span></div></div>
+                <div class="time-node"><div class="time">16:30</div><div class="desc">晚餐：83 獬豸烤肉<span class="note">先抽號碼牌</span></div></div>
+                <div class="time-node"><div class="time">回程</div><div class="desc">搭地鐵15站<span class="note">地鐵 40 分鐘 W1800</span></div></div>
             </div>
+
+            <div class="day-box">
+                <div class="section-title">Day 3 : 3/21 (六)</div>
+                <div class="time-node"><div class="time">09:30</div><div class="desc">出發 早餐 OPS 烘培屋<span class="note">走路 7 分鐘</span></div></div>
+                <div class="time-node"><div class="time">11:00</div><div class="desc">新世界百貨 Centum City 午餐 / 14:00 離開<span class="note">逛街、職人體驗、汗蒸幕 VBP 免費 4 小時</span></div></div>
+                <div class="time-node"><div class="time">交通</div><div class="desc">地鐵 2 站 (15 分鐘) W1600</div></div>
+                <div class="time-node"><div class="time">14:30</div><div class="desc">E-mart 海雲台店 (3/22超市公休) / 16:00 離開<span class="note">地鐵 3 站 (10 分鐘) W1600</span></div></div>
+                <div class="time-node"><div class="time">16:00</div><div class="desc">返回住宿放東西<span class="note">地鐵 1 站 (10 分鐘) W1600</span></div></div>
+                <div class="time-node"><div class="time">17:00</div><div class="desc">廣安里海灘 + 無人機秀 (20:00)<span class="note">地鐵 5 站 (20 分鐘) W1600</span></div></div>
+            </div>
+
+            <div class="day-box">
+                <div class="section-title">Day 4 : 3/22 (日)</div>
+                <div class="time-node"><div class="time">08:30</div><div class="desc">出發早餐超商</div></div>
+                <div class="time-node"><div class="time">09:00</div><div class="desc">東海龍宮 (最美寺廟) / 10:30 離開<span class="note">車程 25 分鐘</span></div></div>
+                <div class="time-node"><div class="time">10:45</div><div class="desc">斜坡滑車 (Skyline Luge) / 12:00 離開<span class="note">走路 10 分鐘，VBP 免費玩 2 次</span></div></div>
+                <div class="time-node"><div class="time">12:30</div><div class="desc">尾浦站附近 午餐 / 15:00 離開<span class="note">車程 20 分鐘</span></div></div>
+                <div class="time-node"><div class="time">15:00</div><div class="desc">海岸列車 (尾浦 ➡ 海月展望台)</div></div>
+                <div class="time-node"><div class="time">16:00</div><div class="desc">海岸列車 (海月展望台 ➡ 青沙浦)</div></div>
+                <div class="time-node"><div class="time">17:30</div><div class="desc">膠囊列車 (青沙浦 ➡ 尾浦)</div></div>
+                <div class="time-node"><div class="time">18:15</div><div class="desc">釜山 X the SKY 100F 夜景<span class="note">走路 7 分鐘 VBP 持卡免費</span></div></div>
+                <div class="time-node"><div class="time">回程</div><div class="desc">步行回飯店 (14 分鐘)</div></div>
+            </div>
+
+            <div class="day-box">
+                <div class="section-title">Day 5 : 3/23 (一)</div>
+                <div class="time-node"><div class="time">09:00</div><div class="desc">出發 早餐超商<span class="note">車程 40 分鐘</span></div></div>
+                <div class="time-node"><div class="time">09:40</div><div class="desc">ARTE MUSEUM Busan (藝術博物館)<span class="note">VBP 免費 / 11:00 離開</span></div></div>
+                <div class="time-node"><div class="time">11:10</div><div class="desc">Thrill on the Mug 咖啡廳 / 12:30 離開<span class="note">車程 10 分鐘</span></div></div>
+                <div class="time-node"><div class="time">13:00</div><div class="desc">海雲台傳統市場、海雲台沙灘<span class="note">車程 40 分鐘 / 補漏採買(藥妝、大創)</span></div></div>
+                <div class="time-node"><div class="time">整理</div><div class="desc">行程最後整理、秤行李重量</div></div>
+            </div>
+
             <div class="day-box">
                 <div class="section-title">Day 6 : 3/24 (二)</div>
-                <div class="time-node"><div class="time">08:00</div><div class="desc">前往機場<span class="note">預約包車 (車程 60 分鐘)</span></div></div>
+                <div class="time-node"><div class="time">08:00</div><div class="desc">出發金海機場 (預約包車)<span class="note">車程 60 分鐘</span></div></div>
                 <div class="time-node"><div class="time">12:00</div><div class="desc">BX795 起飛</div></div>
             </div>
         </div>
@@ -137,11 +163,15 @@
                     重要文件 <button class="add-item-btn" onclick="quickAdd('list-docs', event)">+</button>
                 </div>
                 <div class="accordion-content active" id="list-docs">
-                    <label class="list-item"><input type="checkbox"><span>護照 / 機票 (紙本)</span></label>
-                    <label class="list-item"><input type="checkbox"><span>台幣 (2W以上建議多帶一些)</span></label>
+                    <label class="list-item"><input type="checkbox"><span>護照</span></label>
+                    <label class="list-item"><input type="checkbox"><span>機票 (紙本)</span></label>
+                    <label class="list-item"><input type="checkbox"><span>台幣 (2W以上)</span></label>
                     <label class="list-item"><input type="checkbox"><span>外幣 (韓圓)</span></label>
-                    <label class="list-item"><input type="checkbox"><span>住宿 / 交通 / 門票資訊</span></label>
-                    <label class="list-item"><input type="checkbox"><span>信用卡 / WOWPASS</span></label>
+                    <label class="list-item"><input type="checkbox"><span>住宿資訊</span></label>
+                    <label class="list-item"><input type="checkbox"><span>交通資訊</span></label>
+                    <label class="list-item"><input type="checkbox"><span>門票資訊</span></label>
+                    <label class="list-item"><input type="checkbox"><span>信用卡</span></label>
+                    <label class="list-item"><input type="checkbox"><span>WOWPASS</span></label>
                 </div>
             </div>
 
@@ -150,9 +180,14 @@
                     3C 產品 <button class="add-item-btn" onclick="quickAdd('list-3c', event)">+</button>
                 </div>
                 <div class="accordion-content" id="list-3c">
-                    <label class="list-item"><input type="checkbox"><span>充電線 / 充電器 / 行動電源</span></label>
-                    <label class="list-item"><input type="checkbox"><span>轉接器 / Wifi機 / 耳機</span></label>
-                    <label class="list-item"><input type="checkbox"><span>電子磅秤 / 壓縮機</span></label>
+                    <label class="list-item"><input type="checkbox"><span>充電線</span></label>
+                    <label class="list-item"><input type="checkbox"><span>充電器</span></label>
+                    <label class="list-item"><input type="checkbox"><span>行動電源</span></label>
+                    <label class="list-item"><input type="checkbox"><span>轉接器</span></label>
+                    <label class="list-item"><input type="checkbox"><span>Wifi 機</span></label>
+                    <label class="list-item"><input type="checkbox"><span>耳機</span></label>
+                    <label class="list-item"><input type="checkbox"><span>電子磅秤</span></label>
+                    <label class="list-item"><input type="checkbox"><span>壓縮機</span></label>
                 </div>
             </div>
 
@@ -161,10 +196,24 @@
                     盥洗用品 <button class="add-item-btn" onclick="quickAdd('list-wash', event)">+</button>
                 </div>
                 <div class="accordion-content" id="list-wash">
-                    <label class="list-item"><input type="checkbox"><span>洗面乳 / 卸妝乳 / 沐浴乳 / 洗髮乳</span></label>
-                    <label class="list-item"><input type="checkbox"><span>洗臉巾 / 棉花棒 / 牙膏牙刷 / 卸妝棉</span></label>
-                    <label class="list-item"><input type="checkbox"><span>香水 / 髮油 / 保養品 / 防曬</span></label>
-                    <label class="list-item"><input type="checkbox"><span>浴巾 / 髮巾 / 毛巾 / 梳子 / 髮夾 / 髮捲</span></label>
+                    <label class="list-item"><input type="checkbox"><span>洗面乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>卸妝乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>沐浴乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>洗髮乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>洗臉巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>棉花棒</span></label>
+                    <label class="list-item"><input type="checkbox"><span>牙膏牙刷</span></label>
+                    <label class="list-item"><input type="checkbox"><span>卸妝棉</span></label>
+                    <label class="list-item"><input type="checkbox"><span>香水</span></label>
+                    <label class="list-item"><input type="checkbox"><span>髮油</span></label>
+                    <label class="list-item"><input type="checkbox"><span>保養品</span></label>
+                    <label class="list-item"><input type="checkbox"><span>防曬</span></label>
+                    <label class="list-item"><input type="checkbox"><span>浴巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>髮巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>毛巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>梳子</span></label>
+                    <label class="list-item"><input type="checkbox"><span>髮夾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>髮捲</span></label>
                 </div>
             </div>
 
@@ -173,12 +222,26 @@
                     衣物備品 <button class="add-item-btn" onclick="quickAdd('list-clothes', event)">+</button>
                 </div>
                 <div class="accordion-content" id="list-clothes">
-                    <label class="list-item"><input type="checkbox"><span>貼身衣物 (內衣褲) / 睡衣</span></label>
-                    <label class="list-item"><input type="checkbox"><span>衣服 / 褲子 / 外套 / 襪子</span></label>
-                    <label class="list-item"><input type="checkbox"><span>室內拖 / 拖鞋 / 圍巾 / 帽子 / 手套</span></label>
-                    <label class="list-item"><input type="checkbox"><span>隱形眼鏡 / 眼鏡 / 藥水</span></label>
-                    <label class="list-item"><input type="checkbox"><span>衣服壓縮袋 / 吹風機 / 牙線</span></label>
-                    <label class="list-item"><input type="checkbox"><span>濕紙巾 / 衛生紙 / 飲料提袋</span></label>
+                    <label class="list-item"><input type="checkbox"><span>貼身衣物 (內衣褲)</span></label>
+                    <label class="list-item"><input type="checkbox"><span>衣服</span></label>
+                    <label class="list-item"><input type="checkbox"><span>褲子</span></label>
+                    <label class="list-item"><input type="checkbox"><span>外套</span></label>
+                    <label class="list-item"><input type="checkbox"><span>睡衣</span></label>
+                    <label class="list-item"><input type="checkbox"><span>襪子</span></label>
+                    <label class="list-item"><input type="checkbox"><span>室內拖</span></label>
+                    <label class="list-item"><input type="checkbox"><span>拖鞋</span></label>
+                    <label class="list-item"><input type="checkbox"><span>圍巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>帽子</span></label>
+                    <label class="list-item"><input type="checkbox"><span>手套</span></label>
+                    <label class="list-item"><input type="checkbox"><span>隱形眼鏡</span></label>
+                    <label class="list-item"><input type="checkbox"><span>眼鏡</span></label>
+                    <label class="list-item"><input type="checkbox"><span>藥水</span></label>
+                    <label class="list-item"><input type="checkbox"><span>衣服壓縮袋</span></label>
+                    <label class="list-item"><input type="checkbox"><span>吹風機</span></label>
+                    <label class="list-item"><input type="checkbox"><span>濕紙巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>衛生紙</span></label>
+                    <label class="list-item"><input type="checkbox"><span>飲料提袋</span></label>
+                    <label class="list-item"><input type="checkbox"><span>牙線</span></label>
                 </div>
             </div>
         </div>
@@ -192,12 +255,12 @@
 </div>
 
 <script>
-    // 倒數計時邏輯
+    // 倒數計時
     function updateTimer() {
         const target = new Date("2026/03/19 15:00:00").getTime();
         const now = new Date().getTime();
         const diff = target - now;
-        if (diff <= 0) { document.getElementById("timer").innerHTML = "祝旅途愉快！"; return; }
+        if (diff <= 0) { document.getElementById("timer").innerHTML = "旅途中！"; return; }
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -206,7 +269,7 @@
     setInterval(updateTimer, 60000);
     updateTimer();
 
-    // 分頁切換
+    // 頁面切換
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page-' + pageId).classList.add('active');
@@ -214,16 +277,16 @@
         event.currentTarget.classList.add('active');
     }
 
-    // 摺疊面板切換
+    // 摺疊功能
     function toggleAccordion(header) {
         header.classList.toggle('active');
         header.nextElementSibling.classList.toggle('active');
     }
 
-    // 快速新增物品
-    function quickAdd(targetId, event) {
-        event.stopPropagation(); // 防止觸發摺疊
-        const val = prompt("請輸入新增物品名稱：");
+    // 直覺新增
+    function quickAdd(targetId, e) {
+        e.stopPropagation();
+        const val = prompt("請輸入物品名稱：");
         if (!val) return;
         const container = document.getElementById(targetId);
         const newItem = document.createElement('label');
@@ -233,7 +296,6 @@
             <div class="delete-btn" onclick="this.parentElement.remove()">刪除</div>
         `;
         
-        // 滑動刪除偵測
         let startX;
         newItem.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
         newItem.addEventListener('touchmove', e => {
@@ -241,9 +303,7 @@
             if (startX - moveX > 50) newItem.classList.add('swipe-left');
             if (moveX - startX > 50) newItem.classList.remove('swipe-left');
         });
-
         container.appendChild(newItem);
-        // 自動展開該區塊
         container.classList.add('active');
         container.previousElementSibling.classList.add('active');
     }
