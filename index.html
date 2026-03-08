@@ -9,6 +9,7 @@
             --primary-blue: #8db5c7;
             --soft-red: #e76f51;
             --bg-gray: #f8f9fa;
+            --temp-color: #5a8da3;
             --text-main: #333;
             --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
         }
@@ -22,7 +23,8 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); padding-bottom: 8px; margin-bottom: 15px; }
-        .section-title { background: #e9f2f7; color: var(--primary-blue); padding: 4px 10px; border-radius: 4px; display: inline-block; margin: 15px 0 8px; font-weight: bold; font-size: 0.85rem; }
+        .section-title { background: #e9f2f7; color: var(--primary-blue); padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; margin: 15px 0 8px; font-weight: bold; font-size: 0.85rem; }
+        .temp-badge { margin-left: 8px; color: var(--temp-color); font-weight: normal; font-size: 0.8rem; background: white; padding: 1px 6px; border-radius: 10px; border: 1px solid #d0e1e9; }
 
         /* 倒數計時與天氣 */
         .countdown-container { background: var(--primary-blue); color: white; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 15px; }
@@ -78,7 +80,7 @@
 
             <div class="weather-info">
                 <span>🌡️</span>
-                <span>釜山 3 月均溫 6-13°C，請準備保暖與防風外套。</span>
+                <span>釜山 3 月平均氣溫約 6-13°C，早晚溫差大。</span>
             </div>
 
             <h1>登機與注意事項</h1>
@@ -101,30 +103,30 @@
             <h1>行程規劃</h1>
             
             <div class="day-box">
-                <div class="section-title">Day 1 : 3/19 (四)</div>
+                <div class="section-title">Day 1 : 3/19 (四) <span class="temp-badge">🌡️ 6° / 12°</span></div>
                 <div class="time-node"><div class="time">18:25</div><div class="desc">抵達金海機場 (BX796)</div></div>
                 <div class="time-node"><div class="time">19:30</div><div class="desc">搭乘預約包車<span class="note">車程約 60 分鐘</span></div></div>
                 <div class="time-node"><div class="time">21:00</div><div class="desc">晚餐：水邊最高豬肉湯飯<span class="note">步行 1 分鐘</span></div></div>
             </div>
 
             <div class="day-box">
-                <div class="section-title">Day 2 : 3/20 (五)</div>
+                <div class="section-title">Day 2 : 3/20 (五) <span class="temp-badge">🌡️ 5° / 13°</span></div>
                 <div class="time-node"><div class="time">08:30</div><div class="desc">早餐 Egg Drop 海雲台店<span class="note">步行 7 分鐘</span></div></div>
-                <div class="time-node"><div class="time">10:30</div><div class="desc">甘川文化村-小王子<span class="note">車程 40 分鐘</span></div></div>
+                <div class="time-node"><div class="time">10:30</div><div class="desc">甘川文化村-小王子<span class="note">山區體感溫度較低</span></div></div>
                 <div class="time-node"><div class="time">12:15</div><div class="desc">國際市場、光復路、樂天百貨<span class="note">買棉被、逛街購物、午餐</span></div></div>
-                <div class="time-node"><div class="time">16:10</div><div class="desc">搭地鐵至西面<span class="note">搭乘 7 站 (25分鐘) W1600</span></div></div>
+                <div class="time-node"><div class="time">16:10</div><div class="desc">搭地鐵至西面<span class="note">搭乘 7 站 (25分鐘)</span></div></div>
                 <div class="time-node"><div class="time">16:30</div><div class="desc">晚餐：83 獬豸烤肉<span class="note">先派人抽號碼牌</span></div></div>
             </div>
 
             <div class="day-box">
-                <div class="section-title">Day 3 : 3/21 (六)</div>
-                <div class="time-node"><div class="time">11:00</div><div class="desc">新世界百貨 Centum City<span class="note">午餐、汗蒸幕 VBP 持卡免費 4 小時</span></div></div>
-                <div class="time-node"><div class="time">14:30</div><div class="desc">E-mart 海雲台店<span class="note">⚠️ 隔日超市公休，伴手禮今日買齊</span></div></div>
-                <div class="time-node"><div class="time">17:00</div><div class="desc">廣安里海灘 + 無人機秀 (20:00)</div></div>
+                <div class="section-title">Day 3 : 3/21 (六) <span class="temp-badge">🌡️ 7° / 14°</span></div>
+                <div class="time-node"><div class="time">11:00</div><div class="desc">新世界百貨 Centum City<span class="note">午餐、汗蒸幕 VBP 免費 4 小時</span></div></div>
+                <div class="time-node"><div class="time">14:30</div><div class="desc">E-mart 海雲台店<span class="note">⚠️ 隔日超市公休</span></div></div>
+                <div class="time-node"><div class="time">17:00</div><div class="desc">廣安里海灘 + 無人機秀 (20:00)<span class="note">海邊風大，晚間注意保暖</span></div></div>
             </div>
 
             <div class="day-box">
-                <div class="section-title">Day 4 : 3/22 (日)</div>
+                <div class="section-title">Day 4 : 3/22 (日) <span class="temp-badge">🌡️ 6° / 13°</span></div>
                 <div class="time-node"><div class="time">09:00</div><div class="desc">東海龍宮寺<span class="note">車程 25 分鐘</span></div></div>
                 <div class="time-node"><div class="time">10:45</div><div class="desc">斜坡滑車 (Skyline Luge)<span class="note">VBP 持卡免費玩 2 次</span></div></div>
                 <div class="time-node"><div class="time">15:00</div><div class="desc">海岸列車 (尾浦 ➡ 青沙浦)</div></div>
@@ -132,13 +134,13 @@
             </div>
 
             <div class="day-box">
-                <div class="section-title">Day 5 : 3/23 (一)</div>
-                <div class="time-node"><div class="time">09:40</div><div class="desc">ARTE MUSEUM Busan (藝術博物館)<span class="note">VBP 持卡免費</span></div></div>
+                <div class="section-title">Day 5 : 3/23 (一) <span class="temp-badge">🌡️ 8° / 15°</span></div>
+                <div class="time-node"><div class="time">09:40</div><div class="desc">ARTE MUSEUM Busan<span class="note">VBP 持卡免費</span></div></div>
                 <div class="time-node"><div class="time">13:00</div><div class="desc">海雲台市場巡禮、沙灘、補貨、秤重</div></div>
             </div>
 
             <div class="day-box">
-                <div class="section-title">Day 6 : 3/24 (二)</div>
+                <div class="section-title">Day 6 : 3/24 (二) <span class="temp-badge">🌡️ 7° / 14°</span></div>
                 <div class="time-node"><div class="time">08:00</div><div class="desc">前往金海機場 (預約包車)</div></div>
                 <div class="time-node"><div class="time">12:00</div><div class="desc">BX795 起飛回台</div></div>
             </div>
@@ -155,8 +157,8 @@
                 <div id="list-docs">
                     <label class="list-item"><input type="checkbox"><span>護照</span></label>
                     <label class="list-item"><input type="checkbox"><span>機票 (紙本)</span></label>
-                    <label class="list-item"><input type="checkbox"><span>台幣 (2W 以上)</span></label>
-                    <label class="list-item"><input type="checkbox"><span>外幣 (韓圓)</span></label>
+                    <label class="list-item"><input type="checkbox"><span>台幣</span></label>
+                    <label class="list-item"><input type="checkbox"><span>韓圓</span></label>
                     <label class="list-item"><input type="checkbox"><span>WOWPASS</span></label>
                     <label class="list-item"><input type="checkbox"><span>信用卡</span></label>
                     <label class="list-item"><input type="checkbox"><span>住宿憑證</span></label>
@@ -206,13 +208,12 @@
                     <label class="list-item"><input type="checkbox"><span>毛巾</span></label>
                     <label class="list-item"><input type="checkbox"><span>梳子</span></label>
                     <label class="list-item"><input type="checkbox"><span>髮夾</span></label>
-                    <label class="list-item"><input type="checkbox"><span>髮捲</span></label>
                 </div>
             </div>
 
             <div class="list-group">
                 <div class="list-group-header">
-                    <span class="list-group-title">衣物與生活備品</span>
+                    <span class="list-group-title">衣物生活</span>
                     <button class="add-btn-small" onclick="quickAdd('list-other')">+</button>
                 </div>
                 <div id="list-other">
@@ -223,16 +224,13 @@
                     <label class="list-item"><input type="checkbox"><span>防風外套</span></label>
                     <label class="list-item"><input type="checkbox"><span>襪子</span></label>
                     <label class="list-item"><input type="checkbox"><span>室內拖鞋</span></label>
-                    <label class="list-item"><input type="checkbox"><span>戶外拖鞋</span></label>
                     <label class="list-item"><input type="checkbox"><span>圍巾</span></label>
                     <label class="list-item"><input type="checkbox"><span>帽子</span></label>
-                    <label class="list-item"><input type="checkbox"><span>隱形眼鏡</span></label>
                     <label class="list-item"><input type="checkbox"><span>眼鏡</span></label>
                     <label class="list-item"><input type="checkbox"><span>眼鏡藥水</span></label>
-                    <label class="list-item"><input type="checkbox"><span>衣服壓縮袋</span></label>
                     <label class="list-item"><input type="checkbox"><span>吹風機</span></label>
                     <label class="list-item"><input type="checkbox"><span>濕紙巾</span></label>
-                    <label class="list-item"><input type="checkbox"><span>隨身衛生紙</span></label>
+                    <label class="list-item"><input type="checkbox"><span>衛生紙</span></label>
                     <label class="list-item"><input type="checkbox"><span>飲料提袋</span></label>
                 </div>
             </div>
@@ -247,7 +245,6 @@
 </div>
 
 <script>
-    // 1. 倒數計時
     function updateTimer() {
         const target = new Date("2026/03/19 15:00:00").getTime();
         const diff = target - new Date().getTime();
@@ -261,29 +258,21 @@
     setInterval(updateTimer, 60000);
     updateTimer();
 
-    // 2. 頁面切換
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page-' + pageId).classList.add('active');
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
         event.currentTarget.classList.add('active');
-        // 切換頁面後自動滾回頂部
         document.querySelector('.content-area').scrollTop = 0;
     }
 
-    // 3. 快速新增
     function quickAdd(targetId) {
         const val = prompt("新增項目名稱：");
         if (!val) return;
         const container = document.getElementById(targetId);
         const newItem = document.createElement('label');
         newItem.className = 'list-item';
-        newItem.innerHTML = `
-            <input type="checkbox"><span>${val}</span>
-            <div class="delete-btn" onclick="this.parentElement.remove()">刪除</div>
-        `;
-        
-        // 滑動刪除監聽
+        newItem.innerHTML = `<input type="checkbox"><span>${val}</span><div class="delete-btn" onclick="this.parentElement.remove()">刪除</div>`;
         let startX;
         newItem.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
         newItem.addEventListener('touchmove', e => {
@@ -291,7 +280,6 @@
             if (startX - moveX > 50) newItem.classList.add('swipe-left');
             if (moveX - startX > 50) newItem.classList.remove('swipe-left');
         });
-
         container.appendChild(newItem);
     }
 </script>
