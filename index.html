@@ -24,68 +24,70 @@
         h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); padding-bottom: 8px; margin-bottom: 15px; }
         .section-title { background: #e9f2f7; color: var(--primary-blue); padding: 4px 10px; border-radius: 4px; display: inline-block; margin: 15px 0 8px; font-weight: bold; font-size: 0.85rem; }
 
-        /* 倒數計時 */
-        .countdown-container { background: var(--primary-blue); color: white; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(141, 181, 199, 0.2); }
+        /* 倒數計時與天氣 */
+        .countdown-container { background: var(--primary-blue); color: white; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 15px; }
         .countdown-timer { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
+        .weather-info { background: #f0f7f9; padding: 12px 15px; border-radius: 12px; font-size: 0.95rem; margin-bottom: 20px; color: #333; display: flex; align-items: center; gap: 10px; }
 
-        /* 天氣 */
-        .weather-info { background: #f0f7f9; padding: 12px 15px; border-radius: 12px; font-size: 0.95rem; margin-bottom: 20px; color: #333; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary-blue); }
-
-        /* 行程 */
+        /* 行程樣式 */
         .day-box { margin-bottom: 35px; border-bottom: 1px dashed #eee; padding-bottom: 15px; }
         .time-node { display: flex; margin-bottom: 12px; font-size: 0.95rem; align-items: flex-start; }
         .time-node .time { color: var(--primary-blue); font-weight: bold; width: 65px; flex-shrink: 0; }
         .time-node .desc { flex: 1; line-height: 1.5; }
-        .note { font-size: 0.85rem; color: #777; margin-top: 2px; display: block; font-weight: normal; background: #fdfdfd; padding: 2px 0; }
+        .note { font-size: 0.85rem; color: #777; margin-top: 2px; display: block; font-weight: normal; }
 
-        /* 摺疊清單 */
-        .accordion-item { border: 1px solid #eee; border-radius: 10px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
-        .accordion-header { 
-            background: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; 
-            cursor: pointer; font-weight: bold; color: var(--primary-blue);
+        /* 行李清單卡片樣式 */
+        .list-group { margin-bottom: 30px; }
+        .list-group-header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 10px 5px; border-bottom: 2px solid var(--primary-blue); margin-bottom: 10px;
         }
-        .accordion-header.active { background: #f8fbfe; border-bottom: 1px solid #eee; }
-        .count-badge { font-size: 0.75rem; color: #999; font-weight: normal; margin-left: 8px; }
-        .add-item-btn { background: var(--primary-blue); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-
-        /* 清單卡片 */
-        .list-item { display: flex; align-items: center; padding: 14px 15px; border-bottom: 1px solid #f9f9f9; position: relative; overflow: hidden; touch-action: pan-y; background: white; }
+        .list-group-title { color: var(--primary-blue); font-weight: bold; font-size: 1.1rem; }
+        
+        .list-item { 
+            display: flex; align-items: center; padding: 14px 15px; 
+            background: #fff; border: 1px solid #f0f0f0; border-radius: 8px;
+            margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative; overflow: hidden; touch-action: pan-y;
+        }
         .list-item input[type="checkbox"] { width: 20px; height: 20px; margin-right: 12px; accent-color: var(--primary-blue); flex-shrink: 0; }
-        .list-item span { flex: 1; font-size: 0.95rem; color: #444; transition: 0.2s; }
+        .list-item span { flex: 1; font-size: 0.95rem; color: #444; }
         .list-item input:checked + span { text-decoration: line-through; color: #bbb; }
+        .list-item input:checked { opacity: 0.5; }
 
+        .add-btn-small { background: var(--primary-blue); color: white; border: none; width: 26px; height: 26px; border-radius: 50%; font-size: 20px; display: flex; align-items: center; justify-content: center; }
         .delete-btn { position: absolute; right: -80px; top: 0; width: 80px; height: 100%; background: var(--soft-red); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: right 0.2s; }
         .list-item.swipe-left .delete-btn { right: 0; }
 
         /* 底部導覽 */
         .nav-bar { height: 70px; background: white; border-top: 1px solid #eee; display: flex; justify-content: space-around; position: fixed; bottom: 0; width: 100%; padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-        .nav-item { flex: 1; text-align: center; color: #bbb; text-decoration: none; font-size: 17px; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: 0.3s; }
+        .nav-item { flex: 1; text-align: center; color: #bbb; text-decoration: none; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
         .nav-item.active { color: var(--primary-blue); font-weight: bold; }
-        .nav-item.active::after { content: ''; width: 20px; height: 4px; background: var(--primary-blue); border-radius: 2px; margin-top: 4px; position: absolute; bottom: 15px; }
+        .nav-item.active::after { content: ''; width: 20px; height: 3px; background: var(--primary-blue); margin-top: 5px; border-radius: 2px; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <div class="content-area" id="main-content">
+    <div class="content-area">
         <div id="page-flight" class="page active">
             <div class="countdown-container">
-                <div style="font-size: 0.85rem; margin-bottom: 5px; opacity: 0.9;">KHH ✈️ PUS 出發倒數</div>
+                <div style="font-size: 0.9rem; margin-bottom: 5px; opacity: 0.9;">距離釜山出發還有</div>
                 <div id="timer" class="countdown-timer">--天 --時 --分</div>
             </div>
 
             <div class="weather-info">
-                <span>📍</span>
-                <span>釜山目前氣溫約 6°C，建議準備防風外套。</span>
+                <span>🌡️</span>
+                <span>釜山 3 月均溫 6-13°C，請準備保暖與防風外套。</span>
             </div>
 
             <h1>登機與注意事項</h1>
             
-            <div class="section-title">行李打包守則</div>
+            <div class="section-title">行李打包規定</div>
             <div style="background:#fff3f0; padding:15px; border-radius:12px; font-size:0.95rem; line-height:1.7; border-left:5px solid var(--soft-red); margin-bottom:20px;">
-                • <b>隨身攜帶：</b>行動電源、相機電池、大容量鋰電池。<br>
-                • <b>嚴禁隨身：</b>指甲剪、美工刀、超過 100ml 液體。<br>
-                • <b>托運限重：</b>23KG (請保留空間買棉被！)。
+                • <b>行動電源：</b>務必隨身攜帶，禁止托運<br>
+                • <b>液體：</b>單件超過 100ml 務必托運<br>
+                • <b>重量：</b>手提 10KG / 托運 23KG
             </div>
 
             <div class="section-title">航班全名資訊</div>
@@ -102,110 +104,136 @@
                 <div class="section-title">Day 1 : 3/19 (四)</div>
                 <div class="time-node"><div class="time">18:25</div><div class="desc">抵達金海機場 (BX796)</div></div>
                 <div class="time-node"><div class="time">19:30</div><div class="desc">搭乘預約包車<span class="note">車程約 60 分鐘</span></div></div>
-                <div class="time-node"><div class="time">21:00</div><div class="desc">晚餐：水邊最高豬肉湯飯<span class="note">飯店旁步行 1 分鐘</span></div></div>
+                <div class="time-node"><div class="time">21:00</div><div class="desc">晚餐：水邊最高豬肉湯飯<span class="note">步行 1 分鐘</span></div></div>
             </div>
 
             <div class="day-box">
                 <div class="section-title">Day 2 : 3/20 (五)</div>
-                <div class="time-node"><div class="time">08:30</div><div class="desc">早餐 Egg Drop 海雲台店<span class="note">步行 7 分鐘 / 09:45 離開</span></div></div>
-                <div class="time-node"><div class="time">10:30</div><div class="desc">甘川文化村-小王子<span class="note">車程 40 分鐘 / 12:00 離開</span></div></div>
-                <div class="time-node"><div class="time">12:15</div><div class="desc">國際市場、光復路、樂天百貨<span class="note">買棉被、午餐 / 15:00 離開</span></div></div>
+                <div class="time-node"><div class="time">08:30</div><div class="desc">早餐 Egg Drop 海雲台店<span class="note">步行 7 分鐘</span></div></div>
+                <div class="time-node"><div class="time">10:30</div><div class="desc">甘川文化村-小王子<span class="note">車程 40 分鐘</span></div></div>
+                <div class="time-node"><div class="time">12:15</div><div class="desc">國際市場、光復路、樂天百貨<span class="note">買棉被、逛街購物、午餐</span></div></div>
                 <div class="time-node"><div class="time">16:10</div><div class="desc">搭地鐵至西面<span class="note">搭乘 7 站 (25分鐘) W1600</span></div></div>
-                <div class="time-node"><div class="time">16:30</div><div class="desc">晚餐：83 獬豸烤肉<span class="note">建議提早抽號碼牌</span></div></div>
-                <div class="time-node"><div class="time">回程</div><div class="desc">地鐵返回飯店<span class="note">搭乘 15 站 (40分鐘) W1800</span></div></div>
+                <div class="time-node"><div class="time">16:30</div><div class="desc">晚餐：83 獬豸烤肉<span class="note">先派人抽號碼牌</span></div></div>
             </div>
 
             <div class="day-box">
                 <div class="section-title">Day 3 : 3/21 (六)</div>
-                <div class="time-node"><div class="time">11:00</div><div class="desc">新世界百貨 Centum City<span class="note">午餐、汗蒸幕 (VBP 持卡 4H 免費)</span></div></div>
-                <div class="time-node"><div class="time">14:30</div><div class="desc">E-mart 海雲台店<span class="note">地鐵 3 站 (10分鐘) / ⚠️ 明日公休</span></div></div>
+                <div class="time-node"><div class="time">11:00</div><div class="desc">新世界百貨 Centum City<span class="note">午餐、汗蒸幕 VBP 持卡免費 4 小時</span></div></div>
+                <div class="time-node"><div class="time">14:30</div><div class="desc">E-mart 海雲台店<span class="note">⚠️ 隔日超市公休，伴手禮今日買齊</span></div></div>
                 <div class="time-node"><div class="time">17:00</div><div class="desc">廣安里海灘 + 無人機秀 (20:00)</div></div>
             </div>
 
             <div class="day-box">
                 <div class="section-title">Day 4 : 3/22 (日)</div>
                 <div class="time-node"><div class="time">09:00</div><div class="desc">東海龍宮寺<span class="note">車程 25 分鐘</span></div></div>
-                <div class="time-node"><div class="time">10:45</div><div class="desc">斜坡滑車 (Skyline Luge)<span class="note">VBP 免費玩 2 次</span></div></div>
+                <div class="time-node"><div class="time">10:45</div><div class="desc">斜坡滑車 (Skyline Luge)<span class="note">VBP 持卡免費玩 2 次</span></div></div>
                 <div class="time-node"><div class="time">15:00</div><div class="desc">海岸列車 (尾浦 ➡ 青沙浦)</div></div>
                 <div class="time-node"><div class="time">17:30</div><div class="desc">膠囊列車 (青沙浦 ➡ 尾浦)</div></div>
-                <div class="time-node"><div class="time">18:15</div><div class="desc">釜山 X the SKY 100F<span class="note">VBP 持卡免費</span></div></div>
             </div>
 
             <div class="day-box">
                 <div class="section-title">Day 5 : 3/23 (一)</div>
-                <div class="time-node"><div class="time">09:40</div><div class="desc">ARTE MUSEUM Busan<span class="note">VBP 持卡免費</span></div></div>
-                <div class="time-node"><div class="time">13:00</div><div class="desc">海雲台市場與沙灘巡禮<span class="note">補買藥妝、大創、整理行李</span></div></div>
+                <div class="time-node"><div class="time">09:40</div><div class="desc">ARTE MUSEUM Busan (藝術博物館)<span class="note">VBP 持卡免費</span></div></div>
+                <div class="time-node"><div class="time">13:00</div><div class="desc">海雲台市場巡禮、沙灘、補貨、秤重</div></div>
             </div>
 
             <div class="day-box">
                 <div class="section-title">Day 6 : 3/24 (二)</div>
                 <div class="time-node"><div class="time">08:00</div><div class="desc">前往金海機場 (預約包車)</div></div>
-                <div class="time-node"><div class="time">12:00</div><div class="desc">BX795 起飛回國</div></div>
+                <div class="time-node"><div class="time">12:00</div><div class="desc">BX795 起飛回台</div></div>
             </div>
         </div>
 
         <div id="page-pack" class="page">
             <h1>行李清單</h1>
             
-            <div id="accordion-container">
-                <div class="accordion-item" data-id="docs">
-                    <div class="accordion-header active" onclick="toggleAccordion(this)">
-                        <div>重要文件<span class="count-badge"></span></div>
-                        <button class="add-item-btn" onclick="quickAdd('list-docs', event)">+</button>
-                    </div>
-                    <div class="accordion-content active" id="list-docs">
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>護照</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>機票 (紙本)</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>台幣 (2W 以上)</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>外幣 (韓圓)</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>WOWPASS / 信用卡</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>住宿 / 門票憑證</span></label>
-                    </div>
+            <div class="list-group">
+                <div class="list-group-header">
+                    <span class="list-group-title">重要文件</span>
+                    <button class="add-btn-small" onclick="quickAdd('list-docs')">+</button>
                 </div>
-
-                <div class="accordion-item" data-id="3c">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <div>3C 產品<span class="count-badge"></span></div>
-                        <button class="add-item-btn" onclick="quickAdd('list-3c', event)">+</button>
-                    </div>
-                    <div class="accordion-content" id="list-3c">
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>充電線 / 充電頭</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>行動電源 (隨身)</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>轉接器</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>Wifi 機 / 耳機</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>電子磅秤</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>壓縮機</span></label>
-                    </div>
+                <div id="list-docs">
+                    <label class="list-item"><input type="checkbox"><span>護照</span></label>
+                    <label class="list-item"><input type="checkbox"><span>機票 (紙本)</span></label>
+                    <label class="list-item"><input type="checkbox"><span>台幣 (2W 以上)</span></label>
+                    <label class="list-item"><input type="checkbox"><span>外幣 (韓圓)</span></label>
+                    <label class="list-item"><input type="checkbox"><span>WOWPASS</span></label>
+                    <label class="list-item"><input type="checkbox"><span>信用卡</span></label>
+                    <label class="list-item"><input type="checkbox"><span>住宿憑證</span></label>
+                    <label class="list-item"><input type="checkbox"><span>門票憑證</span></label>
                 </div>
+            </div>
 
-                <div class="accordion-item" data-id="wash">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <div>盥洗與備品<span class="count-badge"></span></div>
-                        <button class="add-item-btn" onclick="quickAdd('list-wash', event)">+</button>
-                    </div>
-                    <div class="accordion-content" id="list-wash">
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>洗面乳 / 卸妝乳</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>洗髮 / 沐浴乳 / 髮油</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>牙刷牙膏 / 牙線</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>棉花棒 / 卸妝棉</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>保養品 / 防曬 / 香水</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>浴巾 / 毛巾 / 梳子 / 髮夾</span></label>
-                    </div>
+            <div class="list-group">
+                <div class="list-group-header">
+                    <span class="list-group-title">3C 產品</span>
+                    <button class="add-btn-small" onclick="quickAdd('list-3c')">+</button>
                 </div>
+                <div id="list-3c">
+                    <label class="list-item"><input type="checkbox"><span>充電線</span></label>
+                    <label class="list-item"><input type="checkbox"><span>充電頭</span></label>
+                    <label class="list-item"><input type="checkbox"><span>行動電源</span></label>
+                    <label class="list-item"><input type="checkbox"><span>韓國轉接頭</span></label>
+                    <label class="list-item"><input type="checkbox"><span>Wifi 機</span></label>
+                    <label class="list-item"><input type="checkbox"><span>藍牙耳機</span></label>
+                    <label class="list-item"><input type="checkbox"><span>電子行李秤</span></label>
+                    <label class="list-item"><input type="checkbox"><span>真空壓縮機</span></label>
+                </div>
+            </div>
 
-                <div class="accordion-item" data-id="other">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <div>衣物與其他<span class="count-badge"></span></div>
-                        <button class="add-item-btn" onclick="quickAdd('list-other', event)">+</button>
-                    </div>
-                    <div class="accordion-content" id="list-other">
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>貼身衣物 / 睡衣</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>外穿衣服 / 褲子 / 外套</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>襪子 / 拖鞋 / 帽子 / 圍巾</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>隱形眼鏡 / 眼鏡 / 藥水</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>吹風機 / 衣服壓縮袋</span></label>
-                        <label class="list-item"><input type="checkbox" onchange="saveListState()"><span>濕紙巾 / 衛生紙 / 飲料提袋</span></label>
-                    </div>
+            <div class="list-group">
+                <div class="list-group-header">
+                    <span class="list-group-title">盥洗用品</span>
+                    <button class="add-btn-small" onclick="quickAdd('list-wash')">+</button>
+                </div>
+                <div id="list-wash">
+                    <label class="list-item"><input type="checkbox"><span>洗面乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>卸妝乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>沐浴乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>洗髮乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>潤髮乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>髮油</span></label>
+                    <label class="list-item"><input type="checkbox"><span>保養品</span></label>
+                    <label class="list-item"><input type="checkbox"><span>防曬乳</span></label>
+                    <label class="list-item"><input type="checkbox"><span>香水</span></label>
+                    <label class="list-item"><input type="checkbox"><span>牙刷</span></label>
+                    <label class="list-item"><input type="checkbox"><span>牙膏</span></label>
+                    <label class="list-item"><input type="checkbox"><span>牙線</span></label>
+                    <label class="list-item"><input type="checkbox"><span>棉花棒</span></label>
+                    <label class="list-item"><input type="checkbox"><span>洗臉巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>卸妝棉</span></label>
+                    <label class="list-item"><input type="checkbox"><span>大浴巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>毛巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>梳子</span></label>
+                    <label class="list-item"><input type="checkbox"><span>髮夾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>髮捲</span></label>
+                </div>
+            </div>
+
+            <div class="list-group">
+                <div class="list-group-header">
+                    <span class="list-group-title">衣物與生活備品</span>
+                    <button class="add-btn-small" onclick="quickAdd('list-other')">+</button>
+                </div>
+                <div id="list-other">
+                    <label class="list-item"><input type="checkbox"><span>內衣褲</span></label>
+                    <label class="list-item"><input type="checkbox"><span>睡衣</span></label>
+                    <label class="list-item"><input type="checkbox"><span>外穿衣服</span></label>
+                    <label class="list-item"><input type="checkbox"><span>褲子</span></label>
+                    <label class="list-item"><input type="checkbox"><span>防風外套</span></label>
+                    <label class="list-item"><input type="checkbox"><span>襪子</span></label>
+                    <label class="list-item"><input type="checkbox"><span>室內拖鞋</span></label>
+                    <label class="list-item"><input type="checkbox"><span>戶外拖鞋</span></label>
+                    <label class="list-item"><input type="checkbox"><span>圍巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>帽子</span></label>
+                    <label class="list-item"><input type="checkbox"><span>隱形眼鏡</span></label>
+                    <label class="list-item"><input type="checkbox"><span>眼鏡</span></label>
+                    <label class="list-item"><input type="checkbox"><span>眼鏡藥水</span></label>
+                    <label class="list-item"><input type="checkbox"><span>衣服壓縮袋</span></label>
+                    <label class="list-item"><input type="checkbox"><span>吹風機</span></label>
+                    <label class="list-item"><input type="checkbox"><span>濕紙巾</span></label>
+                    <label class="list-item"><input type="checkbox"><span>隨身衛生紙</span></label>
+                    <label class="list-item"><input type="checkbox"><span>飲料提袋</span></label>
                 </div>
             </div>
         </div>
@@ -219,16 +247,16 @@
 </div>
 
 <script>
-    // 1. 倒數計時邏輯
+    // 1. 倒數計時
     function updateTimer() {
         const target = new Date("2026/03/19 15:00:00").getTime();
         const diff = target - new Date().getTime();
         const el = document.getElementById("timer");
-        if (diff <= 0) { el.innerText = "旅途愉快！✈️"; return; }
+        if (diff <= 0) { el.innerText = "旅途中！祝愉快 ✈️"; return; }
         const d = Math.floor(diff / (1000*60*60*24));
         const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
         const m = Math.floor((diff % (1000*60*60)) / (1000*60));
-        el.innerText = `${d}天 ${h}時 ${m}分`;
+        el.innerText = `${d}天 ${h}小時 ${m}分`;
     }
     setInterval(updateTimer, 60000);
     updateTimer();
@@ -239,77 +267,33 @@
         document.getElementById('page-' + pageId).classList.add('active');
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
         event.currentTarget.classList.add('active');
-        document.getElementById('main-content').scrollTop = 0;
+        // 切換頁面後自動滾回頂部
+        document.querySelector('.content-area').scrollTop = 0;
     }
 
-    // 3. 摺疊面板
-    function toggleAccordion(header) {
-        header.classList.toggle('active');
-        header.nextElementSibling.classList.toggle('active');
-    }
-
-    // 4. 清單狀態管理 (儲存於 LocalStorage)
-    function saveListState() {
-        const lists = {};
-        document.querySelectorAll('.accordion-item').forEach(item => {
-            const id = item.dataset.id;
-            const checkboxes = [];
-            item.querySelectorAll('input[type="checkbox"]').forEach((cb, idx) => {
-                checkboxes.push(cb.checked);
-            });
-            lists[id] = checkboxes;
-        });
-        localStorage.setItem('busan_list_state', JSON.stringify(lists));
-        updateBadges();
-    }
-
-    function updateBadges() {
-        document.querySelectorAll('.accordion-item').forEach(item => {
-            const total = item.querySelectorAll('input[type="checkbox"]').length;
-            const checked = item.querySelectorAll('input[type="checkbox"]:checked').length;
-            item.querySelector('.count-badge').innerText = `(${checked}/${total})`;
-        });
-    }
-
-    // 5. 快速新增
-    function quickAdd(targetId, e) {
-        e.stopPropagation();
-        const val = prompt("新增行李項目：");
+    // 3. 快速新增
+    function quickAdd(targetId) {
+        const val = prompt("新增項目名稱：");
         if (!val) return;
         const container = document.getElementById(targetId);
         const newItem = document.createElement('label');
         newItem.className = 'list-item';
-        newItem.innerHTML = `<input type="checkbox" onchange="saveListState()"><span>${val}</span><div class="delete-btn" onclick="removeItem(this)">刪除</div>`;
+        newItem.innerHTML = `
+            <input type="checkbox"><span>${val}</span>
+            <div class="delete-btn" onclick="this.parentElement.remove()">刪除</div>
+        `;
         
         // 滑動刪除監聽
-        addSwipeEvent(newItem);
-        container.appendChild(newItem);
-        container.classList.add('active');
-        container.previousElementSibling.classList.add('active');
-        saveListState();
-    }
-
-    function removeItem(btn) {
-        btn.parentElement.remove();
-        saveListState();
-    }
-
-    function addSwipeEvent(el) {
         let startX;
-        el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
-        el.addEventListener('touchmove', e => {
+        newItem.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+        newItem.addEventListener('touchmove', e => {
             let moveX = e.touches[0].clientX;
-            if (startX - moveX > 50) el.classList.add('swipe-left');
-            if (moveX - startX > 50) el.classList.remove('swipe-left');
+            if (startX - moveX > 50) newItem.classList.add('swipe-left');
+            if (moveX - startX > 50) newItem.classList.remove('swipe-left');
         });
-    }
 
-    // 初始化載入
-    window.onload = () => {
-        document.querySelectorAll('.list-item').forEach(addSwipeEvent);
-        updateBadges();
-        // 如果想實作載入舊狀態，可在此解析 localStorage.getItem('busan_list_state')
-    };
+        container.appendChild(newItem);
+    }
 </script>
 </body>
 </html>
