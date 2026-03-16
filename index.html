@@ -20,7 +20,7 @@
         .app-container { display: flex; flex-direction: column; height: 100vh; }
         .content-area { flex: 1; overflow-y: auto; padding-bottom: 100px; }
         .page { display: none; padding: 20px; box-sizing: border-box; }
-        .page.active { display: block; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; animation: fadeIn 0.2s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); padding-bottom: 8px; margin-bottom: 15px; }
@@ -30,10 +30,9 @@
         /* 倒數計時 */
         .countdown-container { background: var(--primary-blue); color: white; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 15px; }
         .countdown-timer { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
-        .weather-info { background: #f0f7f9; padding: 12px 15px; border-radius: 12px; font-size: 0.95rem; margin-bottom: 20px; color: #333; display: flex; align-items: center; gap: 10px; }
 
         /* 行程樣式 */
-        .day-box { margin-bottom: 35px; border-bottom: 1px dashed #eee; padding-bottom: 15px; }
+        .day-box { margin-bottom: 30px; border-bottom: 1px dashed #eee; padding-bottom: 15px; }
         .time-node { display: flex; margin-bottom: 12px; font-size: 0.95rem; align-items: flex-start; }
         .time-node .time { color: var(--primary-blue); font-weight: bold; width: 65px; flex-shrink: 0; }
         .time-node .desc { flex: 1; line-height: 1.5; }
@@ -42,89 +41,124 @@
         /* 清單摺疊與進度 */
         .list-group { margin-bottom: 15px; border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
         .list-group-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: #fcfcfc; cursor: pointer; }
-        .header-left { display: flex; align-items: center; gap: 10px; }
-        .list-group-title { color: var(--primary-blue); font-weight: bold; font-size: 1.05rem; }
-        .progress-text { font-size: 0.85rem; color: #999; font-family: monospace; }
+        .list-group-title { color: var(--primary-blue); font-weight: bold; font-size: 1rem; }
+        .progress-text { font-size: 0.85rem; color: #999; }
         .progress-text.completed { color: var(--success-green); font-weight: bold; }
         .list-content { display: flex; flex-direction: column; padding: 10px; background: white; border-top: 1px solid #f9f9f9; }
         .list-group.collapsed .list-content { display: none; }
-        .list-group.collapsed .arrow { transform: rotate(-90deg); }
-        .arrow { transition: transform 0.2s; color: #ccc; font-size: 12px; }
 
-        /* 項目容器與新增按鈕 */
-        .list-item-wrapper, .add-item-dashed { margin-bottom: 8px; width: 100%; }
-        .list-item, .add-item-dashed { 
-            display: flex; align-items: center; height: 50px; padding: 0 15px; 
-            border-radius: 10px; box-sizing: border-box; font-size: 0.95rem; 
+        /* 項目樣式 */
+        .list-item-wrapper { margin-bottom: 8px; }
+        .list-item { 
+            display: flex; align-items: center; height: 48px; padding: 0 12px; 
+            background: #fff; border: 1px solid #f0f0f0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-
-        .list-item { background: #fff; border: 1px solid #f0f0f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .list-item input[type="checkbox"] { width: 20px; height: 20px; margin-right: 12px; accent-color: var(--primary-blue); flex-shrink: 0; }
-        .list-item span { flex: 1; color: #444; }
+        .list-item input { width: 18px; height: 18px; margin-right: 12px; accent-color: var(--primary-blue); }
         .list-item input:checked + span { text-decoration: line-through; color: #bbb; }
 
+        /* 新增按鈕 */
         .add-item-dashed {
+            display: flex; align-items: center; justify-content: center; height: 48px;
             background: rgba(0, 0, 0, 0.02); border: 2px dashed #ccc; color: #888;
-            justify-content: center; cursor: pointer; transition: all 0.2s; margin-top: 5px;
+            border-radius: 8px; cursor: pointer; margin-top: 5px; font-weight: bold; font-size: 0.9rem;
         }
-        .add-item-dashed:active { background: rgba(0, 0, 0, 0.05); transform: scale(0.98); }
 
         /* 導航欄 */
-        .nav-bar { height: 70px; background: white; border-top: 1px solid #eee; display: flex; justify-content: space-around; position: fixed; bottom: 0; width: 100%; padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
-        .nav-item { flex: 1; text-align: center; color: #bbb; text-decoration: none; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; }
+        .nav-bar { 
+            height: 70px; background: white; border-top: 1px solid #eee; 
+            display: flex; justify-content: space-around; 
+            position: fixed; bottom: 0; left: 0; right: 0;
+            padding-bottom: env(safe-area-inset-bottom); 
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05); 
+            z-index: 9999;
+        }
+        .nav-item { flex: 1; text-align: center; color: #bbb; font-size: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
         .nav-item.active { color: var(--primary-blue); font-weight: bold; }
-        .nav-icon { font-size: 20px; margin-bottom: 4px; }
+        .nav-icon { font-size: 22px; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
     <div class="content-area">
+        
         <div id="page-flight" class="page active">
             <div class="countdown-container">
                 <div style="font-size: 0.9rem; margin-bottom: 5px; opacity: 0.9;">距離釜山出發還有</div>
                 <div id="timer" class="countdown-timer">--天 --時 --分</div>
-            </div>
-            <div class="weather-info">
-                <span>🌡️</span>
-                <span>釜山 3 月均溫 6-13°C，早晚溫差大，請準備保暖與防風外套。</span>
             </div>
             <h1>登機與注意事項</h1>
             <div class="section-title">行李打包規定</div>
             <div style="background:#fff3f0; padding:15px; border-radius:12px; font-size:0.95rem; line-height:1.7; border-left:5px solid var(--soft-red); margin-bottom:20px;">
                 • <b>行動電源：</b>務必隨身攜帶，禁止托運<br>
                 • <b>液體：</b>單件超過 100ml 務必托運<br>
-                • <b>重量：</b>手提 10KG (2件內) / 托運 23KG<br>
-                • <b>行李：</b>長寬高總和不可超過 203 公分
+                • <b>重量：</b>手提 10KG / 托運 23KG
             </div>
             <div class="section-title">航班資訊</div>
             <div style="background:var(--bg-gray); padding:15px; border-radius:10px; font-size:0.95rem; line-height:1.8;">
-                <b>去程 3/19 (四):</b> BX796 高雄 15:15 → 釜山 18:25<br>
-                <b>回程 3/24 (二):</b> BX795 釜山 12:00 → 高雄 13:40
+                <b>去程 3/19:</b> BX796 高雄 15:15 → 18:25<br>
+                <b>回程 3/24:</b> BX795 釜山 12:00 → 13:40
             </div>
         </div>
 
         <div id="page-itinerary" class="page">
             <h1>行程規劃</h1>
             <div class="day-box">
-                <div class="section-title">Day 1 : 3/19 (週四) <span class="temp-badge">🌡️ 6° / 12°</span></div>
+                <div class="section-title">Day 1 : 3/19 (週四)</div>
                 <div class="time-node"><div class="time">18:25</div><div class="desc">抵達金海機場 (BX796)</div></div>
-                <div class="time-node"><div class="time">19:30</div><div class="desc">搭乘預約包車<span class="note">車程約 60 分鐘</span></div></div>
-                <div class="time-node"><div class="time">20:30</div><div class="desc">飯店 Check-in<span class="note">Best Western 海雲台</span></div></div>
+                <div class="time-node"><div class="time">19:30</div><div class="desc">搭乘包車前往飯店 (60分)</div></div>
+                <div class="time-node"><div class="time">20:30</div><div class="desc">飯店 Check-in: Best Western 海雲台</div></div>
                 <div class="time-node"><div class="time">21:00</div><div class="desc">晚餐：水邊最高豬肉湯飯</div></div>
             </div>
+
+            <div class="day-box">
+                <div class="section-title">Day 2 : 3/20 (週五)</div>
+                <div class="time-node"><div class="time">08:30</div><div class="desc">出發 早餐 Egg Drop 海雲台店</div></div>
+                <div class="time-node"><div class="time">10:30</div><div class="desc">甘川文化村-小王子</div></div>
+                <div class="time-node"><div class="time">12:15</div><div class="desc">國際市場、光復路、樂天百貨<span class="note">買棉被、購物、午餐</span></div></div>
+                <div class="time-node"><div class="time">15:00</div><div class="desc">釜山塔 (步行至手扶梯)</div></div>
+                <div class="time-node"><div class="time">16:30</div><div class="desc">晚餐：83 獬豸烤肉 (抽號碼牌)</div></div>
             </div>
+
+            <div class="day-box">
+                <div class="section-title">Day 3 : 3/21 (週六)</div>
+                <div class="time-node"><div class="time">09:30</div><div class="desc">早餐 OPS 烘培屋</div></div>
+                <div class="time-node"><div class="time">上午</div><div class="desc">新世界百貨 Centum City<span class="note">汗蒸幕 VBP 免費 4 小時</span></div></div>
+                <div class="time-node"><div class="time">14:30</div><div class="desc">E-mart 海雲台店 (必買伴手禮)</div></div>
+                <div class="time-node"><div class="time">17:00</div><div class="desc">廣安里海灘 + 無人機秀 (20:00)</div></div>
+            </div>
+
+            <div class="day-box">
+                <div class="section-title">Day 4 : 3/22 (週日)</div>
+                <div class="time-node"><div class="time">09:00</div><div class="desc">東海龍宮寺</div></div>
+                <div class="time-node"><div class="time">10:45</div><div class="desc">斜坡滑車 (Skyline Luge)<span class="note">VBP 免費玩 2 次</span></div></div>
+                <div class="time-node"><div class="time">15:00</div><div class="desc">海岸列車 (尾浦➡️海月➡️青沙浦)</div></div>
+                <div class="time-node"><div class="time">17:30</div><div class="desc">膠囊列車 (青沙浦➡️尾浦)</div></div>
+                <div class="time-node"><div class="time">18:15</div><div class="desc">釜山 X the SKY 100F 夜景</div></div>
+            </div>
+
+            <div class="day-box">
+                <div class="section-title">Day 5 : 3/23 (週一)</div>
+                <div class="time-node"><div class="time">09:40</div><div class="desc">ARTE MUSEUM Busan (VBP免費)</div></div>
+                <div class="time-node"><div class="time">11:10</div><div class="desc">Thrill on the Mug 咖啡廳</div></div>
+                <div class="time-node"><div class="time">13:00</div><div class="desc">海雲台市場巡禮 & 沙灘</div></div>
+                <div class="time-node"><div class="time">晚上</div><div class="desc">飯店補漏採買 & 整理行李秤重</div></div>
+            </div>
+
+            <div class="day-box">
+                <div class="section-title">Day 6 : 3/24 (週二)</div>
+                <div class="time-node"><div class="time">08:00</div><div class="desc">出發金海機場 (包車)</div></div>
+                <div class="time-node"><div class="time">12:00</div><div class="desc">BX795 起飛回台</div></div>
+            </div>
+        </div>
 
         <div id="page-pack" class="page">
             <h1>行李清單</h1>
-
+            
             <div class="list-group">
                 <div class="list-group-header" onclick="toggleGroup(this)">
-                    <div class="header-left">
-                        <span class="arrow">▼</span>
-                        <span class="list-group-title">重要文件</span>
-                        <span class="progress-text" id="prog-docs">(0/8)</span>
-                    </div>
+                    <span class="list-group-title">重要文件</span>
+                    <span class="progress-text" id="prog-docs">(0/8)</span>
                 </div>
                 <div class="list-content" id="list-docs">
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>護照</span></label></div>
@@ -135,17 +169,14 @@
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>信用卡</span></label></div>
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>住宿憑證</span></label></div>
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-docs','prog-docs')"><span>門票憑證</span></label></div>
-                    <div class="add-item-dashed" onclick="quickAdd('list-docs', 'prog-docs')"><span>+</span> 新增項目</div>
+                    <div class="add-item-dashed" onclick="quickAdd('list-docs', 'prog-docs')">+ 新增項目</div>
                 </div>
             </div>
 
             <div class="list-group">
                 <div class="list-group-header" onclick="toggleGroup(this)">
-                    <div class="header-left">
-                        <span class="arrow">▼</span>
-                        <span class="list-group-title">3C 產品</span>
-                        <span class="progress-text" id="prog-3c">(0/9)</span>
-                    </div>
+                    <span class="list-group-title">3C 產品</span>
+                    <span class="progress-text" id="prog-3c">(0/9)</span>
                 </div>
                 <div class="list-content" id="list-3c">
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>充電線</span></label></div>
@@ -157,99 +188,107 @@
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>電子行李秤</span></label></div>
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>真空壓縮機</span></label></div>
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-3c','prog-3c')"><span>變壓器</span></label></div>
-                    <div class="add-item-dashed" onclick="quickAdd('list-3c', 'prog-3c')"><span>+</span> 新增項目</div>
+                    <div class="add-item-dashed" onclick="quickAdd('list-3c', 'prog-3c')">+ 新增項目</div>
                 </div>
             </div>
 
+            <div class="list-group">
+                <div class="list-group-header" onclick="toggleGroup(this)">
+                    <span class="list-group-title">衣服備品</span>
+                    <span class="progress-text" id="prog-clothes">(0/20)</span>
+                </div>
+                <div class="list-content" id="list-clothes">
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>貼身衣物</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>外套/衣服/褲子</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>睡衣/襪子</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>室內拖/拖鞋</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>圍巾/帽子/手套</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>眼鏡/隱形眼鏡</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>吹風機/壓縮袋</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>衛生紙/濕紙巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>飲料提袋/牙線</span></label></div>
+                    <div class="add-item-dashed" onclick="quickAdd('list-clothes', 'prog-clothes')">+ 新增項目</div>
+                </div>
             </div>
+
+            <div class="list-group">
+                <div class="list-group-header" onclick="toggleGroup(this)">
+                    <span class="list-group-title">盥洗用品</span>
+                    <span class="progress-text" id="prog-wash">(0/20)</span>
+                </div>
+                <div class="list-content" id="list-wash">
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>洗面乳/卸妝</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>沐浴/洗髮/潤髮</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>牙刷/牙膏</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>棉花棒/洗臉巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>浴巾/毛巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>梳子/髮油/髮夾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>保養品/防曬</span></label></div>
+                    <div class="add-item-dashed" onclick="quickAdd('list-wash', 'prog-wash')">+ 新增項目</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="nav-bar">
-        <div class="nav-item active" onclick="showPage('flight')"><span class="nav-icon">✈️</span><span>登機</span></div>
-        <div class="nav-item" onclick="showPage('itinerary')"><span class="nav-icon">🗓️</span><span>行程</span></div>
-        <div class="nav-item" onclick="showPage('pack')"><span class="nav-icon">🎒</span><span>清單</span></div>
+        <div class="nav-item active" onclick="showPage('flight', this)"><span class="nav-icon">✈️</span><span>登機</span></div>
+        <div class="nav-item" onclick="showPage('itinerary', this)"><span class="nav-icon">🗓️</span><span>行程</span></div>
+        <div class="nav-item" onclick="showPage('pack', this)"><span class="nav-icon">🎒</span><span>清單</span></div>
     </div>
 </div>
 
 <script>
-    // 1. 切換摺疊
-    function toggleGroup(header) {
-        header.parentElement.classList.toggle('collapsed');
-    }
-
-    // 2. 更新進度數字
-    function updateProg(listId, progId) {
-        const list = document.getElementById(listId);
-        if(!list) return;
-        const boxes = list.querySelectorAll('input[type="checkbox"]');
-        const checked = list.querySelectorAll('input[type="checkbox"]:checked');
-        const progEl = document.getElementById(progId);
-        
-        progEl.innerText = `(${checked.length}/${boxes.length})`;
-        if (checked.length === boxes.length && boxes.length > 0) {
-            progEl.classList.add('completed');
-        } else {
-            progEl.classList.remove('completed');
-        }
-    }
-
-    // 3. 新增項目 (修正版：插在按鈕上方)
-    function quickAdd(targetId, progId) {
-        const val = prompt("請輸入新增項目名稱：");
-        if (!val || val.trim() === "") return;
-
-        const container = document.getElementById(targetId);
-        const addButton = container.querySelector('.add-item-dashed');
-
-        const wrapper = document.createElement('div');
-        wrapper.className = 'list-item-wrapper';
-        wrapper.innerHTML = `
-            <label class="list-item">
-                <input type="checkbox" onchange="updateProg('${targetId}','${progId}')">
-                <span>${val}</span>
-            </label>
-        `;
-        
-        container.insertBefore(wrapper, addButton);
-        updateProg(targetId, progId);
-    }
-
-    // 4. 倒數計時
-    function updateTimer() {
-        const target = new Date("2026/03/19 15:15:00").getTime();
-        const now = new Date().getTime();
-        const diff = target - now;
-        const el = document.getElementById("timer");
-
-        if (diff <= 0) { el.innerText = "祝旅途愉快！"; return; }
-
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        el.innerText = `${d}天 ${h}小時 ${m}分`;
-    }
-
-    // 5. 分頁切換
-    function showPage(pageId) {
+    function showPage(pageId, element) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page-' + pageId).classList.add('active');
-        
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-        
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        element.classList.add('active');
         document.querySelector('.content-area').scrollTop = 0;
     }
 
-    // 初始化
+    function toggleGroup(header) { header.parentElement.classList.toggle('collapsed'); }
+
+    function updateProg(listId, progId) {
+        const list = document.getElementById(listId);
+        const boxes = list.querySelectorAll('input[type="checkbox"]');
+        const checked = list.querySelectorAll('input[type="checkbox"]:checked');
+        const progEl = document.getElementById(progId);
+        progEl.innerText = `(${checked.length}/${boxes.length})`;
+        if (checked.length === boxes.length && boxes.length > 0) progEl.classList.add('completed');
+        else progEl.classList.remove('completed');
+    }
+
+    function quickAdd(targetId, progId) {
+        const val = prompt("新增項目：");
+        if (!val) return;
+        const container = document.getElementById(targetId);
+        const btn = container.querySelector('.add-item-dashed');
+        const wrapper = document.createElement('div');
+        wrapper.className = 'list-item-wrapper';
+        wrapper.innerHTML = `<label class="list-item"><input type="checkbox" onchange="updateProg('${targetId}','${progId}')"><span>${val}</span></label>`;
+        container.insertBefore(wrapper, btn);
+        updateProg(targetId, progId);
+    }
+
+    function updateTimer() {
+        const target = new Date("2026/03/19 15:15:00").getTime();
+        const diff = target - new Date().getTime();
+        const el = document.getElementById("timer");
+        if (diff <= 0) { el.innerText = "祝旅途愉快！"; return; }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        el.innerText = `${d}天 ${h}小時 ${m}分`;
+    }
+
     window.onload = () => {
         updateTimer();
         setInterval(updateTimer, 60000);
-        // 初始化所有清單的進度
         updateProg('list-docs', 'prog-docs');
         updateProg('list-3c', 'prog-3c');
-        // 如果有其他 ID 也請在此補上
+        updateProg('list-clothes', 'prog-clothes');
+        updateProg('list-wash', 'prog-wash');
     };
 </script>
-
 </body>
 </html>
