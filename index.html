@@ -61,6 +61,58 @@
         .nav-bar { height: 70px; background: white; border-top: 1px solid #eee; display: flex; justify-content: space-around; position: fixed; bottom: 0; width: 100%; padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
         .nav-item { flex: 1; text-align: center; color: #bbb; text-decoration: none; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
         .nav-item.active { color: var(--primary-blue); font-weight: bold; }
+
+        /* 行李清單整體容器 */
+.list-content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+/* 統一項目與新增方塊的高度與間距 */
+.list-item-wrapper, .add-item-dashed {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.list-item, .add-item-dashed {
+    display: flex;
+    align-items: center;
+    height: 52px; /* 固定高度，讓視覺整齊 */
+    padding: 0 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+}
+
+/* 一般項目樣式 */
+.list-item {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* 虛線新增項目方塊 UI */
+.add-item-dashed {
+    background: rgba(0, 0, 0, 0.02);
+    border: 2px dashed #ccc;
+    color: #888;
+    justify-content: center; /* 文字置中 */
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 5px;
+}
+
+.add-item-dashed:active {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(0.98);
+}
+
+.add-item-dashed span {
+    font-weight: bold;
+    margin-right: 5px;
+    color: #555;
+}
     </style>
 </head>
 <body>
