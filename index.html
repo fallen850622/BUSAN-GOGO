@@ -92,7 +92,10 @@
             <div style="background:#fff3f0; padding:15px; border-radius:12px; font-size:0.95rem; line-height:1.7; border-left:5px solid var(--soft-red); margin-bottom:20px;">
                 • <b>行動電源：</b>務必隨身攜帶，禁止托運<br>
                 • <b>液體：</b>單件超過 100ml 務必托運<br>
-                • <b>重量：</b>手提 10KG / 托運 23KG
+                • <b>重量：</b>手提 10KG (2件內) / 托運 23KG<br>
+                • <b>行李：</b>長寬高總和不可超過 203 公分
+
+            </div>
             </div>
             <div class="section-title">航班資訊</div>
             <div style="background:var(--bg-gray); padding:15px; border-radius:10px; font-size:0.95rem; line-height:1.8;">
@@ -199,14 +202,24 @@
                 </div>
                 <div class="list-content" id="list-clothes">
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>貼身衣物</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>外套/衣服/褲子</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>睡衣/襪子</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>室內拖/拖鞋</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>圍巾/帽子/手套</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>眼鏡/隱形眼鏡</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>吹風機/壓縮袋</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>衛生紙/濕紙巾</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>飲料提袋/牙線</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>外套</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>衣服</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>褲子</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>睡衣</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>襪子</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>室內拖</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>拖鞋</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>圍巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>帽子</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>手套</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>眼鏡</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>隱形眼鏡</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>吹風機</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>壓縮袋</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>衛生紙</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>濕紙巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>飲料提袋</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>牙線</span></label></div>
                     <div class="add-item-dashed" onclick="quickAdd('list-clothes', 'prog-clothes')">+ 新增項目</div>
                 </div>
             </div>
@@ -217,13 +230,26 @@
                     <span class="progress-text" id="prog-wash">(0/20)</span>
                 </div>
                 <div class="list-content" id="list-wash">
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>洗面乳/卸妝</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>沐浴/洗髮/潤髮</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>牙刷/牙膏</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>棉花棒/洗臉巾</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>浴巾/毛巾</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>梳子/髮油/髮夾</span></label></div>
-                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>保養品/防曬</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>洗面乳</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>卸妝乳</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>沐浴乳</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>洗髮乳</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>潤髮乳</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>牙刷</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>牙膏</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>卸妝棉</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>洗臉巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>棉花棒</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>髮巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>浴巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>毛巾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>梳子</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>髮油</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>香水</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>髮夾</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>保養品</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>防曬</span></label></div>
+                    <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-wash','prog-wash')"><span>髮捲</span></label></div>
                     <div class="add-item-dashed" onclick="quickAdd('list-wash', 'prog-wash')">+ 新增項目</div>
                 </div>
             </div>
@@ -231,9 +257,9 @@
     </div>
 
     <div class="nav-bar">
-        <div class="nav-item active" onclick="showPage('flight', this)"><span class="nav-icon">✈️</span><span>登機</span></div>
-        <div class="nav-item" onclick="showPage('itinerary', this)"><span class="nav-icon">🗓️</span><span>行程</span></div>
-        <div class="nav-item" onclick="showPage('pack', this)"><span class="nav-icon">🎒</span><span>清單</span></div>
+        <div class="nav-item active" onclick="showPage('flight', this)"></span><span>登機</span></div>
+        <div class="nav-item" onclick="showPage('itinerary', this)"><span>行程</span></div>
+        <div class="nav-item" onclick="showPage('pack', this)"><span>清單</span></div>
     </div>
 </div>
 
