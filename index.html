@@ -15,17 +15,30 @@
             --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; font-family: var(--font-family); background: white; color: var(--text-main); overflow: hidden; -webkit-tap-highlight-color: transparent; }
+        /* 修正：確保 html 和 body 佔滿全螢幕但不產生原生捲軸 */
+        body, html { 
+            margin: 0; padding: 0; height: 100vh; width: 100%;
+            font-family: var(--font-family); background: white; 
+            color: var(--text-main); overflow: hidden; 
+            -webkit-tap-highlight-color: transparent; 
+        }
 
         .app-container { display: flex; flex-direction: column; height: 100vh; }
-        .content-area { flex: 1; overflow-y: auto; padding-bottom: 100px; }
+
+        /* 修正：計算內容區高度，減去導航欄高度 */
+        .content-area { 
+            flex: 1; 
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch; /* 優化手機端滑動感 */
+            padding-bottom: calc(80px + env(safe-area-inset-bottom)); 
+        }
+
         .page { display: none; padding: 20px; box-sizing: border-box; }
         .page.active { display: block; animation: fadeIn 0.2s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); padding-bottom: 8px; margin-bottom: 15px; }
         .section-title { background: #e9f2f7; color: var(--primary-blue); padding: 4px 10px; border-radius: 4px; display: inline-flex; align-items: center; margin: 15px 0 8px; font-weight: bold; font-size: 0.85rem; }
-        .temp-badge { margin-left: 8px; color: var(--temp-color); font-weight: normal; font-size: 0.8rem; background: white; padding: 1px 6px; border-radius: 10px; border: 1px solid #d0e1e9; }
 
         /* 倒數計時 */
         .countdown-container { background: var(--primary-blue); color: white; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 15px; }
@@ -38,7 +51,7 @@
         .time-node .desc { flex: 1; line-height: 1.5; }
         .note { font-size: 0.85rem; color: #777; margin-top: 2px; display: block; font-weight: normal; }
 
-        /* 清單摺疊與進度 */
+        /* 清單樣式 */
         .list-group { margin-bottom: 15px; border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
         .list-group-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: #fcfcfc; cursor: pointer; }
         .list-group-title { color: var(--primary-blue); font-weight: bold; font-size: 1rem; }
@@ -47,7 +60,6 @@
         .list-content { display: flex; flex-direction: column; padding: 10px; background: white; border-top: 1px solid #f9f9f9; }
         .list-group.collapsed .list-content { display: none; }
 
-        /* 項目樣式 */
         .list-item-wrapper { margin-bottom: 8px; }
         .list-item { 
             display: flex; align-items: center; height: 48px; padding: 0 12px; 
@@ -56,7 +68,6 @@
         .list-item input { width: 18px; height: 18px; margin-right: 12px; accent-color: var(--primary-blue); }
         .list-item input:checked + span { text-decoration: line-through; color: #bbb; }
 
-        /* 新增按鈕 */
         .add-item-dashed {
             display: flex; align-items: center; justify-content: center; height: 48px;
             background: rgba(0, 0, 0, 0.02); border: 2px dashed #ccc; color: #888;
@@ -74,14 +85,13 @@
         }
         .nav-item { flex: 1; text-align: center; color: #bbb; font-size: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
         .nav-item.active { color: var(--primary-blue); font-weight: bold; }
-        .nav-icon { font-size: 22px; margin-bottom: 2px; }
+        .nav-icon { font-size: 20px; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
     <div class="content-area">
-        
         <div id="page-flight" class="page active">
             <div class="countdown-container">
                 <div style="font-size: 0.9rem; margin-bottom: 5px; opacity: 0.9;">距離釜山出發還有</div>
@@ -94,8 +104,6 @@
                 • <b>液體：</b>單件超過 100ml 務必托運<br>
                 • <b>重量：</b>手提 10KG (2件內) / 托運 23KG<br>
                 • <b>行李：</b>長寬高總和不可超過 203 公分
-
-            </div>
             </div>
             <div class="section-title">航班資訊</div>
             <div style="background:var(--bg-gray); padding:15px; border-radius:10px; font-size:0.95rem; line-height:1.8;">
@@ -198,7 +206,7 @@
             <div class="list-group">
                 <div class="list-group-header" onclick="toggleGroup(this)">
                     <span class="list-group-title">衣服備品</span>
-                    <span class="progress-text" id="prog-clothes">(0/20)</span>
+                    <span class="progress-text" id="prog-clothes">(0/19)</span>
                 </div>
                 <div class="list-content" id="list-clothes">
                     <div class="list-item-wrapper"><label class="list-item"><input type="checkbox" onchange="updateProg('list-clothes','prog-clothes')"><span>貼身衣物</span></label></div>
@@ -257,9 +265,15 @@
     </div>
 
     <div class="nav-bar">
-        <div class="nav-item active" onclick="showPage('flight', this)"></span><span>登機</span></div>
-        <div class="nav-item" onclick="showPage('itinerary', this)"><span>行程</span></div>
-        <div class="nav-item" onclick="showPage('pack', this)"><span>清單</span></div>
+        <div class="nav-item active" onclick="showPage('flight', this)">
+            <span>登機</span>
+        </div>
+        <div class="nav-item" onclick="showPage('itinerary', this)">
+            <span>行程</span>
+        </div>
+        <div class="nav-item" onclick="showPage('pack', this)">
+            <span>清單</span>
+        </div>
     </div>
 </div>
 
@@ -276,6 +290,7 @@
 
     function updateProg(listId, progId) {
         const list = document.getElementById(listId);
+        if(!list) return;
         const boxes = list.querySelectorAll('input[type="checkbox"]');
         const checked = list.querySelectorAll('input[type="checkbox"]:checked');
         const progEl = document.getElementById(progId);
